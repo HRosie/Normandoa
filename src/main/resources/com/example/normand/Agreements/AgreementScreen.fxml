@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.rentalmanagement.gui.AgreementController">
+    <padding>
+        <Insets top="10" right="25" bottom="10" left="25"/>
+    </padding>
+    <Label text="Rental Agreement Form" style="-fx-font-size: 20px;"/>
+    <TextField fx:id="tenantNameField" promptText="com.example.normand.Controllers.SceneController.Tenant Name"/>
+    <TextField fx:id="propertyField" promptText="com.example.normand.Controllers.SceneController.Property"/>
+    <DatePicker fx:id="startDatePicker" promptText="Start Date"/>
+    <DatePicker fx:id="endDatePicker" promptText="End Date"/>
+    <TextField fx:id="monthlyRentField" promptText="Monthly Rent"/>
+    <HBox spacing="10">
+        <Button text="Save Agreement" onAction="#handleSaveAgreement"/>
+        <Button text="Delete Agreement" onAction="#handleDeleteAgreement"/>
+        <Button text="Cancel" onAction="#handleCancel"/>
+    </HBox>
+</VBox>
