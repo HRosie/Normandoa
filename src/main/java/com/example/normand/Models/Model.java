@@ -22,7 +22,7 @@ public class Model {
     public Model() {
         this.databaseConnection = DatabaseConnection.getInstance();
         this.view = new ViewFactory(databaseConnection);
-        //this.manager = new Manager("", "", "","" , com.example.normand.Models.Role.Manager, null, "");
+        this.manager = new Manager("", "", "","" , Role.Manager, null, "");
         this.owner = new Owner("", "", "", "", Role.Owner, null, "");
         this.tenant = new Tenant("", "", "", "", Role.Tenant, null, "");
         //this.visitor = new Visitor("", "", "", Role.Visitor, "", "", "", "");
@@ -90,7 +90,7 @@ public class Model {
                             case Manager:
                                 if (resultSet.next())
                                 {
-                                    String id = resultSet.getString("id");
+                                    String id = resultSet.getString("userid");
                                     String fullname = resultSet.getString("fullname");
                                     String contact = resultSet.getString("contact");
                                     Date dob = resultSet.getDate("dob");

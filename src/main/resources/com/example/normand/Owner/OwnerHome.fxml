@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.rentalmanagement.gui.ManagerDashboardController">
+<BorderPane fx:id="ownerHome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.normand.Controllers.SceneController.Owner.OwnerHomeController">
    <top>
       <ToolBar>
          <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Owner Dashboard" />
@@ -76,7 +76,7 @@
          </Tab>
 
          <!-- Statistics Tab -->
-         <Tab fx:id="ownerInfoTab" text="Personal Info">
+         <Tab fx:id="ownerInfoTab" onSelectionChanged="#handleProfileTabSelection" text="Personal Info">
             <VBox spacing="10" style="-fx-padding: 10;">
                <Label prefHeight="46.0" prefWidth="271.0" style="-fx-font-size: 16px;" text="Personal Information">
                   <font>
@@ -91,6 +91,8 @@
                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                  </rowConstraints>
                   <children>
@@ -114,10 +116,22 @@
                            <Font name="Consolas" size="16.0" />
                         </font>
                      </Label>
-                     <TextField fx:id="ownerUserId" disable="true" GridPane.columnIndex="1" />
-                     <TextField fx:id="ownerFullName" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                     <TextField fx:id="ownerContact" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                     <TextField fx:id="ownerDob" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                     <TextField fx:id="ownerUserId" disable="false" GridPane.columnIndex="1" />
+                     <TextField fx:id="ownerFullName" disable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     <TextField fx:id="ownerContact" disable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                     <TextField fx:id="ownerDob" disable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                     <Label text="Username" GridPane.rowIndex="4">
+                        <font>
+                           <Font name="Consolas" size="16.0" />
+                        </font>
+                     </Label>
+                     <Label text="Password" GridPane.rowIndex="5">
+                        <font>
+                           <Font name="Consolas" size="16.0" />
+                        </font>
+                     </Label>
+                     <TextField fx:id="ownerUsername" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                     <TextField fx:id="ownerPassword" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   </children>
                </GridPane>
                <GridPane prefHeight="30.0" prefWidth="245.0">

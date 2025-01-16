@@ -81,11 +81,11 @@ public class Property {
 
     @Override
     public String toString() {
-        return  "propertyId=" + propertyId +
-                ", propertyAddress='" + propertyAddress + '\'' +
-                ", propertyPrice=" + propertyPrice +
-                ", propertyStatus='" + propertyStatus + '\'' +
-                ", OwnerId='" + OwnerId + '\'' +
+        return  "id= " + propertyId +
+                ", address= " + propertyAddress + '\'' +
+                ", price= " + propertyPrice +
+                ", status= " + propertyStatus + '\'' +
+                ", ownerId= " + OwnerId + '\'' +
                 '}';
     }
 }
