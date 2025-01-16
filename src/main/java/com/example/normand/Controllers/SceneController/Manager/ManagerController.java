@@ -1,8 +1,6 @@
 package com.example.normand.Controllers.SceneController.Manager;
 
-import com.example.normand.Models.Manager;
-import com.example.normand.Models.Person;
-import com.example.normand.Models.Role;
+import com.example.normand.Models.*;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -53,5 +51,36 @@ public class ManagerController {
             e.printStackTrace();
         }
         return users;
+    }
+
+    public List<Residential> getResidential() {
+        List<Residential> residentials = new ArrayList<>();
+        List<Commercial> commercials = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM property WHERE type = 'residential'";
+            ResultSet resultSet = statement.executeQuery(query);
+            while(resultSet.next()) {
+                String type = resultSet.getString("type");
+                if (type.equals("residential")) {
+                    Residential property = new Residential(
+                            resultSet.getString("propertyId"),
+                            resultSet.getString("address"),
+                            resultSet.getDouble("price"),
+                            resultSet.getDouble("area"),
+                            resultSet.getString("status"),
+                            resultSet.getString("type"),
+                            resultSet.getString("ownerId"),
+                            resultSet.getInt("room"),
+                            resultSet.getBoolean("garden"),
+                            resultSet.getBoolean("pet")
+                    );
+                    residentials.add(property);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return residentials;
     }
 }

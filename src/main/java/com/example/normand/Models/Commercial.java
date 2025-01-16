@@ -5,22 +5,14 @@ package com.example.normand.Models;
  */
 
 public class Commercial extends Property {
-    private String type;
     private int parkingSpace;
 
-    public Commercial(String propertyId, String propertyAddress, double propertySize, double propertyPrice, String propertyStatus, String type, int parkingSpace, String ownerId) {
-        super(propertyId, propertyAddress, propertySize, propertyPrice, propertyStatus, ownerId);
-        this.type = type;
+    public Commercial(String propertyId, String propertyAddress, double propertySize, double propertyPrice, String propertyStatus, String propertyType, int parkingSpace, String ownerId) {
+        super(propertyId, propertyAddress, propertySize, propertyPrice, propertyStatus, propertyType, ownerId);
         this.parkingSpace = parkingSpace;
     }
 
-    public String getType() {
-        return type;
-    }
 
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public int getParkingSpace() {
         return parkingSpace;
@@ -34,7 +26,6 @@ public class Commercial extends Property {
     @Override
     public String toString() {
         return super.toString() +
-                ", type='" + type + '\'' +
                 ", parkingSpace=" + parkingSpace +
                 '}';
     }
