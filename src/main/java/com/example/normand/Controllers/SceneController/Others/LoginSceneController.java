@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import com.example.normand.Models.Role;
@@ -24,6 +26,9 @@ public class LoginSceneController {
     private Button loginButton;
     @FXML
     private Label loginResult;
+
+    @FXML
+            private BorderPane homeScene;
 
 
     DatabaseConnection databaseConnection= DatabaseConnection.getInstance();
@@ -58,7 +63,7 @@ public class LoginSceneController {
                         break;
 
                     case Owner:
-//                        view.showPolicyOwnerWindow(user, homeScene);
+                        view.showOwnerWindow(user, homeScene);
                         System.out.println("Owner");
                         break;
 

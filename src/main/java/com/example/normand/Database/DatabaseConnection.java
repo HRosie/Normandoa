@@ -85,7 +85,7 @@ public class DatabaseConnection
             statement.setString(2, password);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                String id = resultSet.getString("id");
+                String id = resultSet.getString("userid");
                 String fullname = resultSet.getString("fullname");
                 String contactInfo = resultSet.getString("contact");
                 Date dob = resultSet.getDate("dob");

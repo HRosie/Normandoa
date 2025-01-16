@@ -1,30 +1,29 @@
-package com.example.normand.Controllers.SceneController.Manager;
+package com.example.normand.Controllers.SceneController.Host;
 
 import com.example.normand.Models.*;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManagerController {
-    private final Manager manager;
+public class HostController {
+    private final Host host;
     private Connection connection;
 
-    public ManagerController(Manager manager, Connection connection) {
-        this.manager = manager;
+    public HostController(Host host, Connection connection) {
+        this.host = host;
         this.connection = connection;
     }
 
     public String getInfo() {
-        return "ID: " + manager.getId() + "\n" +
-                "Full Name:" + manager.getFullName() + "\n" +
-                "Username:" + manager.getUsername() + "\n" +
-                "Password:" + manager.getPassword() + "\n" +
-                "Dob: " + manager.getDob() + "\n" +
-                "Contact Info: " + manager.getContactInfo();
+        return "ID: " + host.getId() + "\n" +
+                "Full Name:" + host.getFullName() + "\n" +
+                "Username:" + host.getUsername() + "\n" +
+                "Password:" + host.getPassword() + "\n" +
+                "Dob: " + host.getDob() + "\n" +
+                "Contact Info: " + host.getContactInfo();
 
     }
 
@@ -37,7 +36,7 @@ public class ManagerController {
             while(resultSet.next()) {
                 Role role = Role.valueOf(resultSet.getString("role"));
                 Person user = new Person(
-                    resultSet.getString("userid"),
+                    resultSet.getString("userId"),
                         resultSet.getString("fullname"),
                         resultSet.getString("username"),
                         resultSet.getString("password"),
@@ -64,13 +63,13 @@ public class ManagerController {
                 String type = resultSet.getString("type");
                 if (type.equals("residential")) {
                     Residential property = new Residential(
-                            resultSet.getString("propertyid"),
+                            resultSet.getString("propertyId"),
                             resultSet.getString("address"),
                             resultSet.getDouble("price"),
                             resultSet.getDouble("area"),
                             resultSet.getString("status"),
                             resultSet.getString("type"),
-                            resultSet.getString("ownerid"),
+                            resultSet.getString("ownerId"),
                             resultSet.getInt("room"),
                             resultSet.getBoolean("garden"),
                             resultSet.getBoolean("pet")
@@ -94,14 +93,14 @@ public class ManagerController {
                 String type = resultSet.getString("type");
                 if (type.equals("residential")) {
                     Commercial property = new Commercial(
-                            resultSet.getString("propertyid"),
+                            resultSet.getString("propertyId"),
                             resultSet.getString("address"),
                             resultSet.getDouble("price"),
                             resultSet.getDouble("area"),
                             resultSet.getString("status"),
                             resultSet.getString("type"),
                             resultSet.getInt("parking"),
-                            resultSet.getString("ownerid")
+                            resultSet.getString("ownerId")
                     );
                     commercials.add(property);
                 }
@@ -121,12 +120,12 @@ public class ManagerController {
             while(resultSet.next()) {
                 String type = resultSet.getString("type");
                     Property property = new Property(
-                            resultSet.getString("propertyid"),
+                            resultSet.getString("propertyId"),
                             resultSet.getString("address"),
                             resultSet.getDouble("area"),
                             resultSet.getDouble("price"),
                             resultSet.getString("status"),
-                            resultSet.getString("ownerid"),
+                            resultSet.getString("ownerId"),
                             type
                     );
                     properties.add(property);
@@ -145,13 +144,13 @@ public class ManagerController {
             ResultSet resultSet = statement.executeQuery(query);
             while(resultSet.next()) {
                 RentalAgreement rental = new RentalAgreement(
-                        resultSet.getString("rentalid"),
-                        resultSet.getString("propertyid"),
-                        resultSet.getString("ownerid"),
-                        resultSet.getString("hostid"),
-                        resultSet.getString("tenantid"),
-                        resultSet.getDate("startdate"),
-                        resultSet.getDate("enddate"),
+                        resultSet.getString("rentalId"),
+                        resultSet.getString("propertyId"),
+                        resultSet.getString("ownerId"),
+                        resultSet.getString("hostId"),
+                        resultSet.getString("tenantId"),
+                        resultSet.getDate("startDate"),
+                        resultSet.getDate("endDate"),
                         resultSet.getDouble("fee"),
                         resultSet.getString("status")
                 );
