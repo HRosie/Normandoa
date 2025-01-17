@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.normand2.Controllers.PropertyController.AddRentalAgreementController">
+    <top>
+        <Label prefHeight="34.0" prefWidth="285.0" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-padding: 10;" text="Add New Rental Agreement" BorderPane.alignment="CENTER" />
+    </top>
+    <center>
+        <VBox prefHeight="390.0" prefWidth="286.0" spacing="10" style="-fx-padding: 10;">
+            <TextField fx:id="newRentalId" promptText="Agreement ID" />
+            <TextField fx:id="newTenantId" promptText="Tenant ID" />
+            <TextField fx:id="newHostId" promptText="Host ID" />
+            <TextField fx:id="newOwnerId" promptText="OwnerId" />
+            <TextField fx:id="newPropertyId" promptText="Property Leased ID" />
+         <DatePicker fx:id="newStart" promptText="Start Date" />
+            <DatePicker fx:id="newEnd" promptText="End Date" />
+            <TextField fx:id="newFee" promptText="Renting Fee" />
+         <TextField fx:id="newStatus" promptText="Status" />
+            <Button fx:id="newRentalButton" onAction="#handleAddAgreement" text="Add Agreement" />
+        </VBox>
+    </center>
+</BorderPane>

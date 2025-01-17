@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="270.0" prefWidth="240.0" spacing="10" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.normand.Controllers.PropertyController.AddUserController">
+    <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Add New User" />
+    <TextField fx:id="addUserId" promptText="User ID" />
+    <TextField fx:id="addUserFullName" promptText="Full Name" />
+    <DatePicker fx:id="addUserDob" promptText="Date of Birth" />
+    <TextField fx:id="addUserContact" promptText="Contact Information" />
+   <TextField fx:id="addUserRole" promptText="Role" />
+    <Button fx:id="addUserButton" onAction="#handleAddUser" text="Add User" />
+</VBox>

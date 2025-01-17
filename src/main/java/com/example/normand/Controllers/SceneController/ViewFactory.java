@@ -1,14 +1,11 @@
 package com.example.normand.Controllers.SceneController;
 
-import com.example.normand.Controllers.PropertyController.AddPropertyController;
-import com.example.normand.Controllers.PropertyController.ShowCommercialController;
-import com.example.normand.Controllers.PropertyController.ShowPropertyController;
+import com.example.normand.Controllers.PropertyController.*;
+import com.example.normand.Controllers.SceneController.Manager.ManagerController;
+import com.example.normand.Controllers.SceneController.Manager.ManagerHomeController;
 import com.example.normand.Controllers.SceneController.Owner.OwnerController;
 import com.example.normand.Controllers.SceneController.Owner.OwnerHomeController;
-import com.example.normand.Models.Commercial;
-import com.example.normand.Models.Owner;
-import com.example.normand.Models.Person;
-import com.example.normand.Models.Residential;
+import com.example.normand.Models.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -67,6 +64,33 @@ public class ViewFactory {
             Owner owner = (Owner) model;
             OwnerController ownerController = new OwnerController(owner, databaseConnection.getConnection());
             controller.initialize(owner, ownerController);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Login Successful");
+    }
+
+    public void showManagerWindow(Person model, BorderPane homeScene) {
+        try {
+            // Initialize FXMLLoader
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/example/normand/Manager/ManagerHome.fxml"));
+
+            // Load the FXML file, which will automatically set the root
+            BorderPane root = loader.load();
+
+
+            // Get the current stage and update the scene
+            Stage stage = (Stage) homeScene.getScene().getWindow();
+            stage.getScene().setRoot(root);  // Replace the current scene root with the loaded root
+
+            // Get the controller and initialize it with the necessary data
+            ManagerHomeController controller = loader.getController();
+            Manager manager = (Manager) model;
+            ManagerController managerController = new ManagerController(manager, databaseConnection.getConnection());
+            controller.initialize(manager, managerController);
+            controller.postInitialize();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -155,6 +179,51 @@ public class ViewFactory {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Property");
+            stage.setResizable(false);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showUserAddForm()
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/normand/Form/AddUserScreen.fxml"));
+            Parent root = loader.load();
+            AddUserController controller = loader.getController();
+            controller.postInitialize();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("User");
+            stage.setResizable(false);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showUserViewForm(Person user) {
+        try {
+            // Load the FXML file and get the controller
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/normand/Form/ShowUser.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller from the loader
+            ShowUserController controller = loader.getController();
+
+            // Pass the residential property to the controller
+            controller.setUser(user);
+            // Call postInitialize to set up additional properties
+            controller.postInitialize();  // Call this to handle any setup after initialization
+
+            // Set up the stage and show the window
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("User");
             stage.setResizable(false);
             stage.show();
 

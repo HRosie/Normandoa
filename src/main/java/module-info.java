@@ -20,4 +20,7 @@ module com.example.normand {
     exports com.example.normand.Models;
     opens com.example.normand.Models to javafx.fxml;
 
+    exports com.example.normand.Controllers.SceneController.Manager;
+    opens com.example.normand.Controllers.SceneController.Manager to javafx.fxml;
+
 }

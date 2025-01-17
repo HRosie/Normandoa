@@ -39,6 +39,8 @@ public class LoginSceneController {
     public void login(ActionEvent event) {
         String username = loginUsername.getText();
         String password = loginPassword.getText();
+        System.out.println(username);
+        System.out.println(password);
 
         Person user = databaseConnection.getUser(username, password);
 
@@ -58,7 +60,7 @@ public class LoginSceneController {
                 Role role = model.getLoginRole();
                 switch (role) {
                     case Manager:
-//                        view.showManagerWindow(user, homeScene);
+                        view.showManagerWindow(user, homeScene);
                         System.out.println("Manager");
                         break;
 
