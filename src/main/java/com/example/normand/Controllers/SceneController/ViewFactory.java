@@ -1,6 +1,8 @@
 package com.example.normand.Controllers.SceneController;
 
 import com.example.normand.Controllers.PropertyController.*;
+import com.example.normand.Controllers.SceneController.Host.HostController;
+import com.example.normand.Controllers.SceneController.Host.HostHomeController;
 import com.example.normand.Controllers.SceneController.Manager.ManagerController;
 import com.example.normand.Controllers.SceneController.Manager.ManagerHomeController;
 import com.example.normand.Controllers.SceneController.Owner.OwnerController;
@@ -98,6 +100,33 @@ public class ViewFactory {
         System.out.println("Login Successful");
     }
 
+    public void showHostWindow(Person model, BorderPane homeScene) {
+        try {
+            // Initialize FXMLLoader
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/example/normand/Host/HostHome.fxml"));
+
+            // Load the FXML file, which will automatically set the root
+            BorderPane root = loader.load();
+
+
+            // Get the current stage and update the scene
+            Stage stage = (Stage) homeScene.getScene().getWindow();
+            stage.getScene().setRoot(root);  // Replace the current scene root with the loaded root
+
+            // Get the controller and initialize it with the necessary data
+            HostHomeController controller = loader.getController();
+            Host host = (Host) model;
+            HostController hostController = new HostController(host, databaseConnection.getConnection());
+            controller.initialize(host, hostController);
+            controller.postInitialize();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Login Successful");
+    }
+
 //    public void showOwnerResidential(String id)
 //    {
 //        try {
@@ -162,7 +191,6 @@ public class ViewFactory {
             ShowPropertyController controller = loader.getController();
 
             // Pass the residential property to the controller
-            System.out.println(property);
             controller.setResidentalProperty(property);
             // Call postInitialize to set up additional properties
             controller.postInitialize();  // Call this to handle any setup after initialization
@@ -262,6 +290,34 @@ public class ViewFactory {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Rental Agrreement");
+            stage.setResizable(false);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    public void showRentalViewForm(RentalAgreement rentalAgreement) {
+        try {
+            // Load the FXML file and get the controller
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/normand/Form/ShowRental.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller from the loader
+            ShowRentalController controller = loader.getController();
+
+            // Pass the residential property to the controller
+            controller.setRental(rentalAgreement);
+            // Call postInitialize to set up additional properties
+            controller.postInitialize();  // Call this to handle any setup after initialization
+
+            // Set up the stage and show the window
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("User");
             stage.setResizable(false);
             stage.show();
 

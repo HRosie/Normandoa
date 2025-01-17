@@ -70,7 +70,7 @@ public class LoginSceneController {
                         break;
 
                     case Host:
-//                        view.showPolicyHolderWindow(user, homeScene);
+                        view.showHostWindow(user, homeScene);
                         System.out.println("Host");
                         break;
 

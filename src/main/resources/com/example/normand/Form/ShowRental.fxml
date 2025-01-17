@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.normand.Controllers.PropertyController.ShowUserController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.normand.Controllers.PropertyController.ShowRentalController">
    <children>
       <HBox layoutX="14.0" layoutY="14.0" prefHeight="374.0" prefWidth="573.0">
          <children>
@@ -79,9 +79,9 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="viewRentalExit" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#UserExitButton" prefHeight="33.0" prefWidth="76.0" text="Exit" GridPane.columnIndex="2" />
-                              <Button fx:id="viewRentalUpdate" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#UserSaveButton" prefHeight="37.0" prefWidth="82.0" text="Update" />
-                              <Button fx:id="viewRentalRemove" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#UserRemoveButton" prefHeight="34.0" prefWidth="74.0" text="Remove" GridPane.columnIndex="1" />
+                              <Button fx:id="viewRentalExit" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#RentalExitButton" prefHeight="33.0" prefWidth="76.0" text="Exit" GridPane.columnIndex="2" />
+                              <Button fx:id="viewRentalUpdate" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#RentalSaveButton" prefHeight="37.0" prefWidth="82.0" text="Update" />
+                              <Button fx:id="viewRentalRemove" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#RentalRemoveButton" prefHeight="34.0" prefWidth="74.0" text="Remove" GridPane.columnIndex="1" />
                            </children>
                         </GridPane>
                      </children>
