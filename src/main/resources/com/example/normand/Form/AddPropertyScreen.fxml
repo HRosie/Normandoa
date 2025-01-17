@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.normand.Controllers.PropertyController.AddPropertyController">
+    <top>
+        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-padding: 10 10 10 10;" text="Add New Property" BorderPane.alignment="CENTER" />
+    </top>
+    <center>
+        <TabPane fx:id="addCommercialTab">
+            <!-- Residential Property Tab -->
+            <Tab fx:id="addResidentialTab" text="Residential Property">
+                <VBox spacing="10" style="-fx-padding: 10;">
+                    <TextField fx:id="addResidentId" promptText="Property ID" />
+               <TextField fx:id="addResidentOwner" promptText="Owner ID" />
+                    <TextField fx:id="addResidentAddress" promptText="Address" />
+               <TextField fx:id="addResidentArea" promptText="Square Footage" />
+                    <TextField fx:id="addResidentPrice" promptText="Price" />
+                    <TextField fx:id="addResidentRoom" promptText="Number of Bedrooms" />
+                    <CheckBox fx:id="addResidentGarden" text="Garden Available" />
+                    <CheckBox fx:id="addResidentPet" text="Pet-Friendly" />
+                    <Button fx:id="addResidentButton" onAction="#handleAddResidential" text="Add Residential Property" />
+                </VBox>
+            </Tab>
+            <!-- Commercial Property Tab -->
+            <Tab text="Commercial Property">
+                <VBox spacing="10" style="-fx-padding: 10;">
+                    <TextField fx:id="addCommercialId" promptText="Property ID" />
+               <TextField fx:id="addCommercialOwner" promptText="Owner ID" />
+                    <TextField fx:id="addCommercialAddress" promptText="Address" />
+                    <TextField fx:id="addCommercialPrice" promptText="Price" />
+                    <TextField fx:id="addCommercialType" promptText="Business Type" />
+                    <TextField fx:id="addCommericalParking" promptText="Number of Parking Spaces" />
+                    <TextField fx:id="addCommercialArea" promptText="Square Footage" />
+                    <Button fx:id="addCommercialButton" onAction="#handleAddCommercial" text="Add Commercial Property" />
+                </VBox>
+            </Tab>
+        </TabPane>
+    </center>
+</BorderPane>
