@@ -1,11 +1,15 @@
 package com.example.normand.Controllers.SceneController.Others;
 
 import com.example.normand.Models.Person;
+import com.example.normand.Models.Property;
+import com.example.normand.Models.RentalAgreement;
 
 public class Session {
     private static Session instance;
 
     private Person user;
+    private Property property;
+    private RentalAgreement rentalAgreement;
 
     private Session() {}
 
@@ -22,5 +26,25 @@ public class Session {
 
     public Person getUser() {
         return user;
+    }
+
+    public Property getProperty() {
+        return property;
+    }
+
+    public void setProperty(Property property) {
+        this.property = property;
+    }
+
+    public RentalAgreement getRentalAgreement() {
+        return rentalAgreement;
+    }
+
+    public void setRentalAgreement(RentalAgreement rentalAgreement) {
+        this.rentalAgreement = rentalAgreement;
+    }
+
+    public String getOwnerId() {
+        return property.getOwnerId();
     }
 }

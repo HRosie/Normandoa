@@ -9,8 +9,8 @@ public class Residential extends Property {
     private boolean garden;
     private boolean pet;
 
-    public Residential(String propertyId, String propertyAddress, double propertySize, double propertyPrice, String propertyStatus, String propertyType, String ownerID, int roomAmount, boolean garden, boolean pet) {
-        super(propertyId, propertyAddress, propertyPrice, propertySize, propertyStatus, propertyType, ownerID);
+    public Residential(String propertyId, String propertyAddress, double propertySize, double propertyPrice, String propertyType, String ownerID, int roomAmount, boolean garden, boolean pet) {
+        super(propertyId, propertyAddress, propertyPrice, propertySize, propertyType, ownerID);
         this.roomAmount = roomAmount;
         this.garden = garden;
         this.pet = pet;
@@ -48,4 +48,5 @@ public class Residential extends Property {
                 ", pet=" + pet +
                 '}';
     }
+
 }

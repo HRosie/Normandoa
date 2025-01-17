@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.normand2.Controllers.PropertyController.AddRentalAgreementController">
+    <top>
+        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-padding: 10;" text="Add New Rental Agreement" BorderPane.alignment="CENTER" />
+    </top>
+    <center>
+        <VBox prefHeight="390.0" prefWidth="286.0" spacing="10" style="-fx-padding: 10;">
+            <TextField fx:id="agreementId" promptText="Agreement ID" />
+            <TextField fx:id="tenantId" promptText="Tenant ID" />
+            <TextField fx:id="hostId" promptText="Host ID" />
+            <TextField fx:id="mainTenantId" promptText="Main Tenant ID" />
+            <TextField fx:id="subTenants" promptText="Sub-Tenants (comma-separated IDs)" />
+            <TextField fx:id="propertyLeased" promptText="Property Leased ID" />
+            <ComboBox fx:id="rentalPeriod" promptText="Rental Period">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Daily" />
+                        <String fx:value="Weekly" />
+                        <String fx:value="Fortnightly" />
+                        <String fx:value="Monthly" />
+                        <String fx:value="Yearly" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+            <DatePicker fx:id="contractDate" promptText="Contract Date" />
+            <TextField fx:id="rentingFee" promptText="Renting Fee" />
+            <ComboBox fx:id="status" promptText="Status">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="New" />
+                        <String fx:value="Active" />
+                        <String fx:value="Completed" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+            <Button onAction="#handleAddAgreement" text="Add Agreement" />
+        </VBox>
+    </center>
+</BorderPane>

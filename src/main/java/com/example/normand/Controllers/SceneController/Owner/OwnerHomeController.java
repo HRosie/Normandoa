@@ -3,10 +3,7 @@ package com.example.normand.Controllers.SceneController.Owner;
 import com.example.normand.Controllers.SceneController.Others.SceneUtil;
 import com.example.normand.Controllers.SceneController.ViewFactory;
 import com.example.normand.Database.DatabaseConnection;
-import com.example.normand.Models.Host;
-import com.example.normand.Models.Model;
-import com.example.normand.Models.Owner;
-import com.example.normand.Models.Property;
+import com.example.normand.Models.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -23,8 +20,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+
+import static java.sql.DriverManager.getConnection;
 
 public class OwnerHomeController {
 
@@ -49,8 +51,6 @@ public class OwnerHomeController {
     @FXML
     private TableColumn ownerHostProperty;
 
-    @FXML
-    private TableColumn ownerHostRental;
 
     @FXML
     private TextField ownerHostSearchBox;
@@ -111,6 +111,9 @@ public class OwnerHomeController {
 
     @FXML
     private BorderPane ownerHome;
+    @FXML
+    private TableColumn ownerPropertyId;
+
 
     private Owner owner;
     private OwnerController ownerController;
@@ -142,7 +145,9 @@ public class OwnerHomeController {
             ownerPropertyTable.getSelectionModel().clearSelection();
             ownerViewProperty.setDisable(false);
         } if(selectedProperty.getPropertyType().equals("Residential")){
-            view.showOwnerResidential(selectedProperty.getPropertyId());
+            System.out.println(selectedProperty);
+            System.out.println(getResidentialPropertyById(selectedProperty.getPropertyId()));
+            view.showOwnerResidential(getResidentialPropertyById(selectedProperty.getPropertyId()));
         } else {
             //view.showOwnerCommercial(selectedProperty.getPropertyId());
         }
@@ -155,6 +160,7 @@ public class OwnerHomeController {
     public void initialize(Owner owner, OwnerController ownerController) {
         this.owner = owner;
         this.ownerController = ownerController;
+        populateUserPropertyTable();
         if (ownerInfoTab.isSelected()) {
             handleProfileTabSelection();
         }
@@ -163,6 +169,21 @@ public class OwnerHomeController {
             if (newValue) {
                 populateUserPropertyTable();
                 ownerAddProperty.setDisable(false);
+                ownerViewProperty.setDisable(true);
+            }
+        });
+
+        ownerHostTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                populateUserHostTable();
+            }
+        });
+
+        ownerPropertyTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                selectedProperty = (Property) newSelection;
+                ownerViewProperty.setDisable(false);
+            } else {
                 ownerViewProperty.setDisable(true);
             }
         });
@@ -201,7 +222,7 @@ public class OwnerHomeController {
     private void populateUserPropertyTable(){
         List<Property> datas = ownerController.getProperty();
         ObservableList<Property> data = FXCollections.observableArrayList(datas);
-
+        ownerPropertyId.setCellValueFactory(new PropertyValueFactory<>("propertyId"));
         ownerPropertyAddress.setCellValueFactory(new PropertyValueFactory<>("propertyAddress"));
         ownerPropertyPrice.setCellValueFactory(new PropertyValueFactory<>("propertyPrice"));
         ownerPropertyType.setCellValueFactory(new PropertyValueFactory<>("propertyType"));
@@ -236,39 +257,108 @@ public class OwnerHomeController {
     }
 
     private void populateUserHostTable(){
-        List<Host> datas = ownerController.getHost();
-        ObservableList<Property> data = FXCollections.observableArrayList(datas);
+        List<RentalAgreement> datas = ownerController.getRentalAgreement();
+        ObservableList<RentalAgreement> data = FXCollections.observableArrayList(datas);
 
-        ownerPropertyAddress.setCellValueFactory(new PropertyValueFactory<>("propertyAddress"));
-        ownerPropertyPrice.setCellValueFactory(new PropertyValueFactory<>("propertyPrice"));
-        ownerPropertyType.setCellValueFactory(new PropertyValueFactory<>("propertyType"));
+        ownerHostProperty.setCellValueFactory(new PropertyValueFactory<>("propertyId"));
+        ownerHostName.setCellValueFactory(new PropertyValueFactory<>("hostId"));
 
-        FilteredList<Property> filteredData = new FilteredList<>(data, b -> true);
+        FilteredList<RentalAgreement> filteredData = new FilteredList<>(data, b -> true);
 
-        ownerPropertySearchBox.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(property -> {
+        ownerHostSearchBox.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(rentalAgreement -> {
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
 
                 String lowerCaseFilter = newValue.toLowerCase();
 
-                if (property.getPropertyId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                if (rentalAgreement.getPropertyId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
-                } else if (property.getPropertyAddress().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                } else if (rentalAgreement.getHostId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
                 } else return false;
             });
         });
 
-        ownerPropertyTable.setItems(filteredData);
+        ownerHostTable.setItems(filteredData);
 
-        if (selectedProperty != null){
-            ownerPropertyTable.getSelectionModel().select(selectedProperty);
-            System.out.println(selectedProperty);
-        } else {
-            System.out.println("TestSelect");
+    }
+
+
+    @FXML
+    public void onProfileSaveButton(ActionEvent event){
+
+        String password = ownerPassword.getText();
+        String contact = ownerContact.getText();
+        String fullName = ownerFullName.getText();
+        String username = ownerUsername.getText();
+
+        //Save update data to the database
+        updateProfile(password, contact, fullName, username);
+
+    }
+
+    private void updateProfile(String password, String contact, String fullName, String username)
+    {
+        try {
+            String query = "UPDATE Users SET password = ?, contact = ?, fullname = ? WHERE username = ?";
+            PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
+
+            statement.setString(1, password);
+            statement.setString(2, contact);
+            statement.setString(3, fullName);
+            statement.setString(4, username);
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("An existing user was updated successfully!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+    }
 
+//    @FXML
+//    public void setOwnerAddProperty() {
+//        ViewFactory view = new ViewFactory(databaseConnection);
+//        view.showPropertyAddForm();
+//    }
+
+    @FXML
+    public void onOwnerAddProperty(ActionEvent event){
+
+        ViewFactory view = new ViewFactory(databaseConnection);
+        view.showPropertyAddForm(owner.getId());
+
+    }
+
+    public Residential getResidentialPropertyById(String propertyId) {
+        Residential property = null;
+        String query = "SELECT * FROM property WHERE propertyId = ? AND type = 'Residential'";
+
+        try (PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query)) { // Corrected this line
+            statement.setString(1, propertyId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                // Create a Property object based on the result set
+                property = new Residential(null,null,0,0,null,null,0,true,false);
+                property.setPropertyId(resultSet.getString("propertyId"));
+                property.setPropertyAddress(resultSet.getString("address"));
+                property.setPropertySize(resultSet.getDouble("area"));
+                property.setPropertyPrice(resultSet.getDouble("price"));
+                property.setRoomAmount(resultSet.getInt("room"));
+                property.setPropertyType(resultSet.getString("type"));
+                property.setOwnerId(resultSet.getString("ownerId"));
+                property.setPet(resultSet.getBoolean("pet"));
+                property.setGarden(resultSet.getBoolean("garden"));
+                // Add any other fields here as needed
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return property;
     }
 }

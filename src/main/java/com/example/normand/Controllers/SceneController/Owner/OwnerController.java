@@ -1,10 +1,11 @@
 package com.example.normand.Controllers.SceneController.Owner;
 
+import com.example.normand.Database.DatabaseConnection;
 import com.example.normand.Models.*;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,11 +28,15 @@ public class OwnerController {
 
     }
 
+
     public List<Person> getUser() {
         List<Person> users = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
-            String query = "SELECT * FROM users WHERE ROLE ";
+            String query = "SELECT u.*\n" +
+                    "FROM Agreement a\n" +
+                    "JOIN Users u ON a.hostId = u.userId\n" +
+                    "WHERE a.ownerId = '" + owner.getId() + "'";
             ResultSet resultSet = statement.executeQuery(query);
             while(resultSet.next()) {
                 Role role = Role.valueOf(resultSet.getString("role"));
@@ -57,7 +62,10 @@ public class OwnerController {
         List<Commercial> commercials = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
-            String query = "SELECT * FROM property";
+            String query = "SELECT * \n" +
+                    "FROM property \n" +
+                    "WHERE ownerId = '" + owner.getId() +
+                    "'AND Type = 'Residential'";
             ResultSet resultSet = statement.executeQuery(query);
             while(resultSet.next()) {
                 String type = resultSet.getString("type");
@@ -67,7 +75,6 @@ public class OwnerController {
                             resultSet.getString("address"),
                             resultSet.getDouble("price"),
                             resultSet.getDouble("area"),
-                            resultSet.getString("status"),
                             resultSet.getString("type"),
                             resultSet.getString("ownerId"),
                             resultSet.getInt("room"),
@@ -87,7 +94,10 @@ public class OwnerController {
         List<Commercial> commercials = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
-            String query = "SELECT * FROM property";
+            String query = "SELECT * \n" +
+                    "FROM property \n" +
+                    "WHERE ownerId = '" + owner.getId() +
+                    "'AND Type <> 'Residential'";
             ResultSet resultSet = statement.executeQuery(query);
             while(resultSet.next()) {
                 String type = resultSet.getString("type");
@@ -97,7 +107,6 @@ public class OwnerController {
                             resultSet.getString("address"),
                             resultSet.getDouble("price"),
                             resultSet.getDouble("area"),
-                            resultSet.getString("status"),
                             resultSet.getString("type"),
                             resultSet.getInt("parking"),
                             resultSet.getString("ownerId")
@@ -125,7 +134,6 @@ public class OwnerController {
                             resultSet.getString("address"),
                             resultSet.getDouble("area"),
                             resultSet.getDouble("price"),
-                            resultSet.getString("status"),
                             resultSet.getString("ownerId"),
                             type
                     );
@@ -141,15 +149,15 @@ public class OwnerController {
         List<RentalAgreement> rentals = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
-            String query = "SELECT * FROM agreement";
+            String query = "SELECT * FROM agreement WHERE ownerId = '" + owner.getId() + "'";
             ResultSet resultSet = statement.executeQuery(query);
             while(resultSet.next()) {
                 RentalAgreement rental = new RentalAgreement(
-                        resultSet.getString("rentalId"),
-                        resultSet.getString("propertyId"),
-                        resultSet.getString("ownerId"),
-                        resultSet.getString("hostId"),
-                        resultSet.getString("tenantId"),
+                        resultSet.getString("agreementid"),
+                        resultSet.getString("propertyid"),
+                        resultSet.getString("ownerid"),
+                        resultSet.getString("hostid"),
+                        resultSet.getString("tenantid"),
                         resultSet.getDate("startDate"),
                         resultSet.getDate("endDate"),
                         resultSet.getDouble("fee"),
@@ -162,4 +170,6 @@ public class OwnerController {
         }
         return rentals;
     }
+
+
 }

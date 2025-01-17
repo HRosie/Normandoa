@@ -9,16 +9,16 @@ public class Property {
     private String propertyAddress;
     private double propertySize;
     private double propertyPrice;
-    private String propertyStatus;
+    //private String propertyStatus;
     private String OwnerId;
     private String propertyType;
 
-    public Property(String propertyId, String propertyAddress, double propertySize, double propertyPrice, String propertyStatus, String OwnerId, String propertyType) {
+    public Property(String propertyId, String propertyAddress, double propertySize, double propertyPrice, String OwnerId, String propertyType) {
         this.propertyId = propertyId;
         this.propertyAddress = propertyAddress;
         this.propertySize = propertySize;
         this.propertyPrice = propertyPrice;
-        this.propertyStatus = propertyStatus;
+        //this.propertyStatus = propertyStatus;
         this.OwnerId = OwnerId;
         this.propertyType = propertyType;
     }
@@ -45,14 +45,6 @@ public class Property {
 
     public void setPropertyPrice(double propertyPrice) {
         this.propertyPrice = propertyPrice;
-    }
-
-    public String getPropertyStatus() {
-        return propertyStatus;
-    }
-
-    public void setPropertyStatus(String propertyStatus) {
-        this.propertyStatus = propertyStatus;
     }
 
     public String getOwnerId() {
@@ -84,7 +76,6 @@ public class Property {
         return  "id= " + propertyId +
                 ", address= " + propertyAddress + '\'' +
                 ", price= " + propertyPrice +
-                ", status= " + propertyStatus + '\'' +
                 ", ownerId= " + OwnerId + '\'' +
                 '}';
     }

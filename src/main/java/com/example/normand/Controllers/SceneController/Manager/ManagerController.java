@@ -68,7 +68,6 @@ public class ManagerController {
                             resultSet.getString("address"),
                             resultSet.getDouble("price"),
                             resultSet.getDouble("area"),
-                            resultSet.getString("status"),
                             resultSet.getString("type"),
                             resultSet.getString("ownerid"),
                             resultSet.getInt("room"),
@@ -98,7 +97,6 @@ public class ManagerController {
                             resultSet.getString("address"),
                             resultSet.getDouble("price"),
                             resultSet.getDouble("area"),
-                            resultSet.getString("status"),
                             resultSet.getString("type"),
                             resultSet.getInt("parking"),
                             resultSet.getString("ownerid")
@@ -125,7 +123,6 @@ public class ManagerController {
                             resultSet.getString("address"),
                             resultSet.getDouble("area"),
                             resultSet.getDouble("price"),
-                            resultSet.getString("status"),
                             resultSet.getString("ownerid"),
                             type
                     );

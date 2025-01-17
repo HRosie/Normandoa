@@ -58,7 +58,6 @@ public class VisitorController {
                             resultSet.getString("address"),
                             resultSet.getDouble("price"),
                             resultSet.getDouble("area"),
-                            resultSet.getString("status"),
                             resultSet.getString("type"),
                             resultSet.getString("ownerId"),
                             resultSet.getInt("room"),
@@ -88,7 +87,6 @@ public class VisitorController {
                             resultSet.getString("address"),
                             resultSet.getDouble("price"),
                             resultSet.getDouble("area"),
-                            resultSet.getString("status"),
                             resultSet.getString("type"),
                             resultSet.getInt("parking"),
                             resultSet.getString("ownerId")
@@ -115,7 +113,6 @@ public class VisitorController {
                             resultSet.getString("address"),
                             resultSet.getDouble("area"),
                             resultSet.getDouble("price"),
-                            resultSet.getString("status"),
                             resultSet.getString("ownerId"),
                             type
                     );

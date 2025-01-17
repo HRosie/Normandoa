@@ -7,8 +7,8 @@ package com.example.normand.Models;
 public class Commercial extends Property {
     private int parkingSpace;
 
-    public Commercial(String propertyId, String propertyAddress, double propertySize, double propertyPrice, String propertyStatus, String propertyType, int parkingSpace, String ownerId) {
-        super(propertyId, propertyAddress, propertySize, propertyPrice, propertyStatus, propertyType, ownerId);
+    public Commercial(String propertyId, String propertyAddress, double propertySize, double propertyPrice, String propertyType, int parkingSpace, String ownerId) {
+        super(propertyId, propertyAddress, propertySize, propertyPrice, propertyType, ownerId);
         this.parkingSpace = parkingSpace;
     }
 
