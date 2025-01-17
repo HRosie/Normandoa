@@ -89,15 +89,29 @@ public class AddPropertyController {
 
     @FXML
     public void initialize() {
-        addCommercialOwner.setText(ownerId);
-        addResidentOwner.setText(ownerId);
+        if (ownerId != null) {
+            addCommercialOwner.setText(ownerId);
+            addResidentOwner.setText(ownerId);
+            addCommercialOwner.setDisable(true);
+            addResidentOwner.setDisable(true);
+        } else {
+            addCommercialOwner.setDisable(false);
+            addResidentOwner.setDisable(false);
+        }
     }
 
     public void postInitialize() {
-        addCommercialOwner.setText(ownerId);
-        addResidentOwner.setText(ownerId);
-        addCommercialOwner.setDisable(true);
-        addResidentOwner.setDisable(true);
+        if (ownerId != null) {
+            addCommercialOwner.setText(ownerId);
+            addResidentOwner.setText(ownerId);
+            addCommercialOwner.setDisable(true);
+            addResidentOwner.setDisable(true);
+        } else {
+            addCommercialOwner.setDisable(false);
+            addResidentOwner.setDisable(false);
+        }
+
+
     }
 
 
@@ -170,7 +184,13 @@ public class AddPropertyController {
 
                 // Set the property type as "Commercial"
                 statement.setString(9, propertyType);
-                statement.setString(10, ownerId);
+                if (ownerId != null) {
+                    statement.setString(10, ownerId);
+                } else {
+                    ownerId = addResidentOwner.getText();
+                    statement.setString(10, ownerId);
+                }
+
 
                 // Execute the query to insert the data
                 statement.executeUpdate();
@@ -337,7 +357,12 @@ public class AddPropertyController {
 
                 // Set the type value as "Residential"
                 statement.setString(9, "Residential");
-                statement.setString(10, ownerId);
+                if (ownerId != null) {
+                    statement.setString(10, ownerId);
+                } else {
+                    ownerId = addResidentOwner.getText();
+                    statement.setString(10, ownerId);
+                }
 
                 // Execute the query to insert the data
                 statement.executeUpdate();

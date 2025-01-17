@@ -75,7 +75,7 @@
                   </TableView>
                   <HBox alignment="TOP_RIGHT" spacing="10">
                      <children>
-                        <Button fx:id="adminAddAgreement" mnemonicParsing="false" prefHeight="26.0" prefWidth="138.0" text="Add Agreement" />
+                        <Button fx:id="adminAddAgreement" mnemonicParsing="false" onAction="#onManagerAddRental" prefHeight="26.0" prefWidth="138.0" text="Add Agreement" />
                         <Button fx:id="adminViewAgreement" prefHeight="26.0" prefWidth="273.0" text="View Details" />
                      </children>
                   </HBox>

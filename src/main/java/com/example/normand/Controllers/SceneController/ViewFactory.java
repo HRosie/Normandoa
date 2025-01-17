@@ -133,6 +133,25 @@ public class ViewFactory {
         }
     }
 
+    public void showAdminPropertyAddForm()
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/normand/Form/AddPropertyScreen.fxml"));
+            Parent root = loader.load();
+            AddPropertyController controller = loader.getController();
+            controller.postInitialize();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Property");
+            stage.setResizable(false);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void showOwnerResidential(Residential property) {
         try {
             // Load the FXML file and get the controller
@@ -232,6 +251,24 @@ public class ViewFactory {
         }
     }
 
+    public void showRentalAddForm()
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/normand/Form/AddAgreementScreen.fxml"));
+            Parent root = loader.load();
+            AddRentalController controller = loader.getController();
+            controller.postInitialize();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Rental Agrreement");
+            stage.setResizable(false);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

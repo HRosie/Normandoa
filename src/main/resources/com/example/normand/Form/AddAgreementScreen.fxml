@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.normand2.Controllers.PropertyController.AddRentalAgreementController">
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.normand.Controllers.PropertyController.AddRentalController">
     <top>
         <Label prefHeight="34.0" prefWidth="285.0" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-padding: 10;" text="Add New Rental Agreement" BorderPane.alignment="CENTER" />
     </top>
@@ -22,7 +22,7 @@
             <DatePicker fx:id="newEnd" promptText="End Date" />
             <TextField fx:id="newFee" promptText="Renting Fee" />
          <TextField fx:id="newStatus" promptText="Status" />
-            <Button fx:id="newRentalButton" onAction="#handleAddAgreement" text="Add Agreement" />
+            <Button fx:id="newRentalButton" onAction="#handleAddRental" text="Add Agreement" />
         </VBox>
     </center>
 </BorderPane>

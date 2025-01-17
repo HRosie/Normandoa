@@ -143,6 +143,7 @@ public class ManagerHomeController {
     private ViewFactory view;
     private Property selectedProperty = null;
     private Person selectedUser = null;
+    private RentalAgreement selectedRental = null;
 
     @FXML
     void handleGenerateReports(ActionEvent event) {
@@ -185,9 +186,17 @@ public class ManagerHomeController {
 
         adminUserTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                populateUserHostTable();
+                populateUserTable();
                 adminAddUser.setDisable(false);
                 adminViewUser.setDisable(true);
+            }
+        });
+
+        adminRentalTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                populateRentalTable();
+                adminAddAgreement.setDisable(false);
+                adminViewAgreement.setDisable(true);
             }
         });
 
@@ -206,6 +215,15 @@ public class ManagerHomeController {
                 adminViewUser.setDisable(false);
             } else {
                 adminViewUser.setDisable(true);
+            }
+        });
+
+        adminRentalTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                selectedRental = (RentalAgreement) newSelection;
+                adminViewAgreement.setDisable(false);;
+            } else {
+                adminViewAgreement.setDisable(true);
             }
         });
     }
@@ -252,7 +270,7 @@ public class ManagerHomeController {
 
     }
 
-    private void populateUserHostTable(){
+    private void populateUserTable(){
         List<Person> datas = managerController.getUser();
         ObservableList<Person> data = FXCollections.observableArrayList(datas);
 
@@ -290,6 +308,49 @@ public class ManagerHomeController {
 
     }
 
+    private void populateRentalTable(){
+        List<RentalAgreement> datas = managerController.getRentalAgreement();
+        ObservableList<RentalAgreement> data = FXCollections.observableArrayList(datas);
+
+        adminRentalId.setCellValueFactory(new PropertyValueFactory<>("rentalId"));
+        adminTenantId.setCellValueFactory(new PropertyValueFactory<>("tenantId"));
+        adminHostId.setCellValueFactory(new PropertyValueFactory<>("hostId"));
+        adminRentalStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        adminStart.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        adminEnd.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+
+        FilteredList<RentalAgreement> filteredData = new FilteredList<>(data, b -> true);
+
+        adminAgreementSearchBox.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(rentalAgreement -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (rentalAgreement.getRentalId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (rentalAgreement.getHostId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (rentalAgreement.getTenantId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true;
+                } else if (rentalAgreement.getStatus().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                        return true;
+                } else return false;
+            });
+        });
+
+        adminRentalTable.setItems(filteredData);
+        if (selectedRental != null){
+            adminRentalTable.getSelectionModel().select(selectedRental);
+            System.out.println(selectedRental);
+        } else {
+            System.out.println("TestSelect");
+        }
+
+    }
+
 
 
     private void updateProfile(String password, String contact, String fullName, String username)
@@ -317,7 +378,15 @@ public class ManagerHomeController {
     public void onManagerAddProperty(ActionEvent event){
 
         ViewFactory view = new ViewFactory(databaseConnection);
-        view.showPropertyAddForm(manager.getId());
+        view.showAdminPropertyAddForm();
+
+    }
+
+    @FXML
+    public void onManagerAddRental(ActionEvent event){
+
+        ViewFactory view = new ViewFactory(databaseConnection);
+        view.showRentalAddForm();
 
     }
 
