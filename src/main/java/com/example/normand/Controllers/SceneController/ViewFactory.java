@@ -1,18 +1,17 @@
 package com.example.normand.Controllers.SceneController;
 
 import com.example.normand.Controllers.PropertyController.AddPropertyController;
-import com.example.normand.Controllers.PropertyController.ResidentialController;
+import com.example.normand.Controllers.PropertyController.ShowCommercialController;
 import com.example.normand.Controllers.PropertyController.ShowPropertyController;
 import com.example.normand.Controllers.SceneController.Owner.OwnerController;
 import com.example.normand.Controllers.SceneController.Owner.OwnerHomeController;
+import com.example.normand.Models.Commercial;
 import com.example.normand.Models.Owner;
 import com.example.normand.Models.Person;
-import com.example.normand.Models.Property;
 import com.example.normand.Models.Residential;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 //import SceneController.com.example.normand.Controllers.*;
@@ -20,7 +19,6 @@ import javafx.stage.Stage;
 import com.example.normand.Database.DatabaseConnection;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 //import SceneController.Manager.ManagerHomeController;
 
 
@@ -123,6 +121,33 @@ public class ViewFactory {
             // Pass the residential property to the controller
             System.out.println(property);
             controller.setResidentalProperty(property);
+            // Call postInitialize to set up additional properties
+            controller.postInitialize();  // Call this to handle any setup after initialization
+
+            // Set up the stage and show the window
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Property");
+            stage.setResizable(false);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showOwnerCommercial(Commercial property) {
+        try {
+            // Load the FXML file and get the controller
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/normand/Form/CommercialOwnerForm.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller from the loader
+            ShowCommercialController controller = loader.getController();
+
+            // Pass the residential property to the controller
+            System.out.println(property);
+            controller.setCommercialProperty(property);
             // Call postInitialize to set up additional properties
             controller.postInitialize();  // Call this to handle any setup after initialization
 

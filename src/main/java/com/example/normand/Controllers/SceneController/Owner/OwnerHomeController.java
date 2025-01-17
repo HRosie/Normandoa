@@ -145,11 +145,10 @@ public class OwnerHomeController {
             ownerPropertyTable.getSelectionModel().clearSelection();
             ownerViewProperty.setDisable(false);
         } if(selectedProperty.getPropertyType().equals("Residential")){
-            System.out.println(selectedProperty);
-            System.out.println(getResidentialPropertyById(selectedProperty.getPropertyId()));
             view.showOwnerResidential(getResidentialPropertyById(selectedProperty.getPropertyId()));
         } else {
-            //view.showOwnerCommercial(selectedProperty.getPropertyId());
+            System.out.println(getCommercialPropertyById(selectedProperty.getPropertyId()));
+            view.showOwnerCommercial(getCommercialPropertyById(selectedProperty.getPropertyId()));
         }
     }
     public OwnerHomeController() {
@@ -204,20 +203,6 @@ public class OwnerHomeController {
 
     }
 
-//    private void populateUserPropertyTable() {
-//        List<Property> properties = ownerController.getProperty();
-//        ObservableList<Property> data = FXCollections.observableArrayList(properties);
-//        System.out.println(properties);
-//        ownerPropertyAddress.setCellValueFactory(new PropertyValueFactory<>("propertyAddress"));
-//        ownerPropertyPrice.setCellValueFactory(new PropertyValueFactory<>("propertyPrice"));
-//        ownerPropertyType.setCellValueFactory(new PropertyValueFactory<>("propertyType"));
-//
-//        ownerPropertyTable.setItems(data);
-//        if (selectedProperty != null)
-//        {
-//            ownerPropertyTable.getSelectionModel().select(selectedProperty);
-//        }
-//    }
 
     private void populateUserPropertyTable(){
         List<Property> datas = ownerController.getProperty();
@@ -353,6 +338,35 @@ public class OwnerHomeController {
                 property.setOwnerId(resultSet.getString("ownerId"));
                 property.setPet(resultSet.getBoolean("pet"));
                 property.setGarden(resultSet.getBoolean("garden"));
+                // Add any other fields here as needed
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return property;
+    }
+
+
+    public Commercial getCommercialPropertyById(String propertyId) {
+        Commercial property = null;
+        String query = "SELECT * FROM property WHERE propertyId = ? AND type <> 'Residential'";
+
+        try (PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query)) { // Corrected this line
+            statement.setString(1, propertyId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                // Create a Property object based on the result set
+                property = new Commercial(null,null,0,0,null,0,null);
+                property.setPropertyId(resultSet.getString("propertyId"));
+                property.setPropertyAddress(resultSet.getString("address"));
+                property.setPropertySize(resultSet.getDouble("area"));
+                property.setPropertyPrice(resultSet.getDouble("price"));
+                property.setParkingSpace(resultSet.getInt("parking"));
+                property.setPropertyType(resultSet.getString("type"));
+                property.setOwnerId(resultSet.getString("ownerId"));
+                property.setPropertyPrice(resultSet.getDouble("price"));
                 // Add any other fields here as needed
             }
 

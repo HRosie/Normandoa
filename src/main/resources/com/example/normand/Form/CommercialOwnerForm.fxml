@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.normand.Controllers.PropertyController.ShowCommercialController">
    <children>
       <HBox layoutX="14.0" layoutY="14.0" prefHeight="374.0" prefWidth="573.0">
          <children>
@@ -77,17 +77,22 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button fx:id="ownerCommercialExit" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="102.0" text="Exit" GridPane.columnIndex="2" />
-                        <Button fx:id="ownerCommercialRemove" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" text="Remove" GridPane.columnIndex="1" />
-                        <Button fx:id="ownerCommercialUpdate" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" text="Update" />
+                        <Button fx:id="ownerCommercialExit" alignment="CENTER" mnemonicParsing="false" onAction="#CommercialExitButton" prefHeight="26.0" prefWidth="102.0" text="Exit" GridPane.columnIndex="2" />
+                        <Button fx:id="ownerCommercialRemove" alignment="CENTER" mnemonicParsing="false" onAction="#CommercialRemoveButton" prefHeight="26.0" prefWidth="114.0" text="Remove" GridPane.columnIndex="1" />
+                        <Button fx:id="ownerCommercialUpdate" alignment="CENTER" mnemonicParsing="false" onAction="#CommercialSaveButton" prefHeight="26.0" prefWidth="110.0" text="Update" />
                      </children>
                   </GridPane>
-                  <TextField fx:id="ownerCommercialId" opacity="0.0" GridPane.columnIndex="1" />
-                  <TextField fx:id="ownerCommercialAddress" opacity="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="ownerCommercialArea" opacity="0.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="ownerCommercialType" opacity="0.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="ownerCommercialParking" opacity="0.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextField opacity="0.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="ownerCommercialId" GridPane.columnIndex="1" />
+                  <TextField fx:id="ownerCommercialAddress" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="ownerCommercialArea" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="ownerCommercialType" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="ownerCommercialParking" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="ownerCommercialPrice" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label text="Fee" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="Consolas" size="16.0" />
+                     </font>
+                  </Label>
                </children>
             </GridPane>
          </children>

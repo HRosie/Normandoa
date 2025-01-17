@@ -96,6 +96,8 @@ public class AddPropertyController {
     public void postInitialize() {
         addCommercialOwner.setText(ownerId);
         addResidentOwner.setText(ownerId);
+        addCommercialOwner.setDisable(true);
+        addResidentOwner.setDisable(true);
     }
 
 
@@ -108,7 +110,7 @@ public class AddPropertyController {
         String propertyPrice = addCommercialPrice.getText();
         String propertyRoom; // Room field (can be empty)
         String parkingValue = addCommericalParking.getText(); // Parking field (can be empty)
-        String propertyType = "Commercial"; // You can define this as a fixed type for commercial properties
+        String propertyType = addCommercialType.getText(); // You can define this as a fixed type for commercial properties
 
 
 
@@ -176,9 +178,11 @@ public class AddPropertyController {
                 // Optionally, give feedback or clear fields
                 System.out.println("Commercial property added successfully.");
 
-                if (stage != null) {
+
+                Platform.runLater(() -> {
+                    Stage stage = (Stage) addCommercialButton.getScene().getWindow();
                     stage.close();
-                }
+                });
 
             } catch (SQLException e) {
                 e.printStackTrace();

@@ -1,7 +1,7 @@
 package com.example.normand.Controllers.PropertyController;
 
 import com.example.normand.Database.DatabaseConnection;
-import com.example.normand.Models.Residential;
+import com.example.normand.Models.Commercial;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -11,25 +11,25 @@ import javafx.stage.Stage;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class ShowPropertyController {
+public class ShowCommercialController {
 
     @FXML
-    private TextField ownerResidentialId;
+    private TextField ownerCommercialId;
     @FXML
-    private TextField ownerResidentialAddress;
+    private TextField ownerCommercialAddress;
     @FXML
-    private TextField ownerResidentialArea;
+    private TextField ownerCommercialArea;
     @FXML
-    private TextField ownerResidentialRooms;
+    private TextField ownerCommercialType;
     @FXML
-    private TextField ownerResidentialPet;
+    private TextField ownerCommercialParking;
     @FXML
-    private TextField ownerResidentialGarden;
+    private TextField ownerCommercialPrice;
 
-    private Residential property;
+    private Commercial property;
 
 
-    public void setResidentalProperty(Residential property) {
+    public void setCommercialProperty(Commercial property) {
         this.property = property;
     }
 
@@ -45,7 +45,7 @@ public class ShowPropertyController {
 
     public void postInitialize() {
         // Additional setup after initialization, if needed
-        ownerResidentialId.setDisable(true);
+        ownerCommercialId.setDisable(true);
 
         showPropertyInfo();
         // If this is necessary to call again after setup
@@ -54,49 +54,48 @@ public class ShowPropertyController {
     private void showPropertyInfo() {
         if (property != null) {
             // Populate fields with the property data
-            ownerResidentialId.setText(property.getPropertyId());
-            ownerResidentialAddress.setText(property.getPropertyAddress());
-            ownerResidentialArea.setText(String.valueOf(property.getPropertySize()));
-            ownerResidentialRooms.setText(String.valueOf(property.getRoomAmount()));
-            ownerResidentialPet.setText(String.valueOf(property.isPet()));
-            ownerResidentialGarden.setText(String.valueOf(property.isGarden()));
+            ownerCommercialId.setText(property.getPropertyId());
+            ownerCommercialAddress.setText(property.getPropertyAddress());
+            ownerCommercialArea.setText(String.valueOf(property.getPropertySize()));
+            ownerCommercialType.setText(property.getPropertyType());
+            ownerCommercialParking.setText(String.valueOf(property.getPropertySize()));
+            ownerCommercialPrice.setText(String.valueOf(property.getPropertyPrice()));
         }
     }
 
 
 
     @FXML
-    public void ResidentSaveButton(ActionEvent event){
+    public void CommercialSaveButton(ActionEvent event){
 
-        String propertyId = ownerResidentialId.getText();
-        String propertyAddress  = ownerResidentialAddress.getText();
-        Double propertyArea = Double.valueOf(ownerResidentialArea.getText());
-        Integer propertyRooms = Integer.valueOf(ownerResidentialRooms.getText());
-        Boolean propertyPet = Boolean.valueOf(ownerResidentialPet.getText());
-        Boolean propertyGarden = Boolean.valueOf(ownerResidentialGarden.getText());
+        String propertyId = ownerCommercialId.getText();
+        String propertyAddress  = ownerCommercialAddress.getText();
+        Double propertyArea = Double.valueOf(ownerCommercialArea.getText());
+        String propertyType = ownerCommercialType.getText();
+        Double propertyParking = Double.valueOf(ownerCommercialParking.getText());
+        Double propertyPrice = Double.valueOf(ownerCommercialPrice.getText());
 
         //Save update data to the database
-        updateProfile(propertyId, propertyAddress, propertyArea, propertyRooms, propertyPet, propertyGarden);
+        updateProfile(propertyId, propertyAddress, propertyArea, propertyType, propertyParking, propertyPrice);
 
         closeCurrentScene(event);
 
     }
 
-    private void updateProfile(String id, String address, double area, int room, boolean pet, boolean garden)
+    private void updateProfile(String id, String address, double area, String type, Double park, double price)
     {
         try {
-            String query = "UPDATE Property SET address = ?, area = ?, room = ?, pet = ?, garden = ? WHERE propertyid = ?";
+            String query = "UPDATE Property SET address = ?, area = ?, type = ?, parking = ?, price = ? WHERE propertyid = ?";
             PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
             System.out.println(query);
             statement.setString(1, address);
             statement.setDouble(2, area);
-            statement.setInt(3, room);
-            statement.setBoolean(4, pet);
-            statement.setBoolean(5, garden);
+            statement.setString(3, type);
+            statement.setDouble(4, park );
+            statement.setDouble(5, price);
             statement.setString(6, id);
 
             int rowsUpdated = statement.executeUpdate();
-            System.out.println("rows updated: " + rowsUpdated);
             if (rowsUpdated > 0) {
                 System.out.println("An existing property was updated successfully!");
             }
@@ -105,9 +104,9 @@ public class ShowPropertyController {
         }
     }
 
-    public void ResidentRemoveButton(ActionEvent event) {
+    public void CommercialRemoveButton(ActionEvent event) {
         String query = "DELETE FROM property WHERE propertyId = ?";
-        String propertyId = ownerResidentialId.getText();
+        String propertyId = ownerCommercialId.getText();
 
         try (PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query)) {
             statement.setString(1, propertyId);
@@ -125,7 +124,7 @@ public class ShowPropertyController {
         closeCurrentScene(event);
     }
 
-    public void ResidentExitButton(ActionEvent event) {
+    public void CommercialExitButton(ActionEvent event) {
         closeCurrentScene(event);
     }
 
