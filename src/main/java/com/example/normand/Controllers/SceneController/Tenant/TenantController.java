@@ -19,9 +19,9 @@ public class TenantController {
 
     public String getInfo() {
         return "ID: " + tenant.getId() + "\n" +
-                "Full Name:" + tenant.getFullName() + "\n" +
-                "Username:" + tenant.getUsername() + "\n" +
-                "Password:" + tenant.getPassword() + "\n" +
+                "Full Name: " + tenant.getFullName() + "\n" +
+                "Username: " + tenant.getUsername() + "\n" +
+                "Password: " + tenant.getPassword() + "\n" +
                 "Dob: " + tenant.getDob() + "\n" +
                 "Contact Info: " + tenant.getContactInfo();
 
@@ -113,7 +113,7 @@ public class TenantController {
         List<Property> properties = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
-            String query = "SELECT * FROM property";
+            String query = "SELECT p.* FROM property p JOIN agreement a ON p.propertyid = a.propertyid WHERE a.tenantId = '" + tenant.getId() + "'";
             ResultSet resultSet = statement.executeQuery(query);
             while(resultSet.next()) {
                 String type = resultSet.getString("type");
@@ -137,7 +137,7 @@ public class TenantController {
         List<RentalAgreement> rentals = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
-            String query = "SELECT * FROM agreement";
+            String query = "SELECT * FROM agreement WHERE tenantId= '" + tenant.getId() + "'";
             ResultSet resultSet = statement.executeQuery(query);
             while(resultSet.next()) {
                 RentalAgreement rental = new RentalAgreement(

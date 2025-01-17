@@ -39,8 +39,6 @@ public class LoginSceneController {
     public void login(ActionEvent event) {
         String username = loginUsername.getText();
         String password = loginPassword.getText();
-        System.out.println(username);
-        System.out.println(password);
 
         Person user = databaseConnection.getUser(username, password);
 
@@ -61,37 +59,31 @@ public class LoginSceneController {
                 switch (role) {
                     case Manager:
                         view.showManagerWindow(user, homeScene);
-                        System.out.println("Manager");
                         break;
 
                     case Owner:
                         view.showOwnerWindow(user, homeScene);
-                        System.out.println("Owner");
                         break;
 
                     case Host:
-//                        view.showPolicyHolderWindow(user, homeScene);
-                        System.out.println("Host");
+                        view.showHostWindow(user, homeScene);
                         break;
 
                     case Tenant:
-//                        view.showManagerWindow(user, homeScene);
-                        System.out.println("Tenant");
-                        break;
-
-                    case Visitor:
-//                        view.showInsuranceSurveyorWindow(user, homeScene);
-                        System.out.println("Visitor");
+                        view.showTenantWindow(user, homeScene);
                         break;
 
                     default:
-                        loginResult.setText("Invalid role");
                         break;
                 }
             } else {
                 Platform.runLater(() -> loginResult.setText("Invalid username or password"));
             }
         }).start();
+    }
+
+    public void VisitorLogin(ActionEvent event) {
+        view.showVisitorWindow(homeScene);
     }
 
 }

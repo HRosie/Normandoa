@@ -1,5 +1,6 @@
-package com.example.normand.Controllers.SceneController.Manager;
+package com.example.normand.Controllers.SceneController.Tenant;
 
+import com.example.normand.Controllers.SceneController.Tenant.TenantController;
 import com.example.normand.Controllers.SceneController.Others.SceneUtil;
 import com.example.normand.Controllers.SceneController.ViewFactory;
 import com.example.normand.Database.DatabaseConnection;
@@ -21,129 +22,120 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
-public class ManagerHomeController {
-
-    @FXML
-    private Button adminAddAgreement;
-
-    @FXML
-    private Button adminAddProperty;
-
-    @FXML
-    private Button adminAddUser;
-
-    @FXML
-    private ComboBox<?> adminAgreementFilter;
-
-    @FXML
-    private TextField adminAgreementSearchBox;
-
-    @FXML
-    private TableColumn adminEnd;
-
-    @FXML
-    private TableColumn adminHostId;
-
-    @FXML
-    private Button adminLogout;
-
-    @FXML
-    private TableColumn adminPropertyAddress;
-
-    @FXML
-    private TableColumn adminPropertyPrice;
-
-    @FXML
-    private TextField adminPropertySearchBox;
-
-    @FXML
-    private Button adminPropertySearchButton;
-
-    @FXML
-    private Tab adminPropertyTab;
-
-    @FXML
-    private TableColumn adminPropertyType;
-
-    @FXML
-    private TableColumn adminRentalId;
-
-    @FXML
-    private TableColumn adminRentalStatus;
-
-    @FXML
-    private Tab adminRentalTab;
-
-    @FXML
-    private TextField adminSearchUserBox;
-
-    @FXML
-    private Button adminSearchUserButton;
-
-    @FXML
-    private TableColumn adminStart;
-
-    @FXML
-    private TableColumn adminTenantId;
-
-    @FXML
-    private ComboBox adminUserFilter;
-
-    @FXML
-    private TableColumn adminUserId;
-
-    @FXML
-    private TableColumn adminUserName;
-
-    @FXML
-    private TableColumn adminUserPassword;
-
-    @FXML
-    private TableColumn adminUserRole;
-
-    @FXML
-    private Tab adminUserTab;
-
-    @FXML
-    private TableColumn adminUserUsername;
-
-    @FXML
-    private Button adminViewAgreement;
-
-    @FXML
-    private Button adminViewProperty;
-
-    @FXML
-    private Button adminViewUser;
-
-    @FXML
-    private TableView managerPropertyTable;
-
-    @FXML
-    private TableView adminRentalTable;
-
-    @FXML
-    private TableView adminUserTable;
+public class TenantHomeController {
 
     @FXML
     private Region spacer;
 
     @FXML
-    private TableColumn adminPropertyId;
+    private ComboBox tenantAgreementFilter;
 
     @FXML
-    private BorderPane managerHome;
+    private TextField tenantAgreementSearchBox;
+
+    @FXML
+    private TextField tenantContact;
+
+    @FXML
+    private TextField tenantDob;
+
+    @FXML
+    private TableColumn tenantEnd;
+
+    @FXML
+    private TextField tenantFullName;
+
+    @FXML
+    private TableColumn tenantTenantId;
+
+    @FXML
+    private Tab tenantInfoTab;
+
+    @FXML
+    private Button tenantLogout;
+
+    @FXML
+    private TextField tenantPassword;
+
+    @FXML
+    private TableColumn tenantPropertyAddress;
+
+    @FXML
+    private TableColumn tenantPropertyId;
+
+    @FXML
+    private TableColumn tenantPropertyPrice;
+
+    @FXML
+    private TextField tenantPropertySearchBox;
+
+    @FXML
+    private Button tenantPropertySearchButton;
+
+    @FXML
+    private Button tenantPropertySearchButton1;
+
+    @FXML
+    private Tab tenantPropertyTab;
+
+    @FXML
+    private TableView tenantPropertyTable;
+
+    @FXML
+    private TableColumn tenantPropertyType;
+
+    @FXML
+    private TableColumn tenantRentalId;
+
+    @FXML
+    private TableColumn tenantRentalStatus;
+
+    @FXML
+    private Tab tenantRentalTab;
+
+    @FXML
+    private TableView tenantRentalTable;
+
+    @FXML
+    private Button tenantSaveInfo;
+
+    @FXML
+    private TableColumn tenantStart;
+
+    @FXML
+    private TextField tenantUserId;
+
+    @FXML
+    private TextField tenantUsername;
+
+    @FXML
+    private Button tenantViewAgreement;
+
+    @FXML
+    private Button tenantViewProperty;
+
+    @FXML
+    private BorderPane tenantHome;
+
+    @FXML
+    private TableColumn tenantHostId;
+
+    private RentalAgreement selectedRental = null;
+    private Property selectedProperty = null;
 
 
-    private Manager manager;
-    private ManagerController managerController;
+    private Tenant tenant;
+    private TenantController tenantController;
     DatabaseConnection databaseConnection;
 
+    private String id;
+    private String fullName;
+    private String contact;
+    private Date dob;
+    private String username;
+    private String password;
 
     private ViewFactory view;
-    private Property selectedProperty = null;
-    private Person selectedUser = null;
-    private RentalAgreement selectedRental = null;
 
     @FXML
     void handleGenerateReports(ActionEvent event) {
@@ -151,15 +143,15 @@ public class ManagerHomeController {
     }
 
     @FXML
-    void handleManagerLogout(ActionEvent event) throws IOException {
-        SceneUtil.logout(managerHome);
+    void handleTenantLogout(ActionEvent event) throws IOException {
+        SceneUtil.logout(tenantHome);
     }
 
     @FXML
-    void showManagerProperty(ActionEvent event) {
+    void showTenantProperty(ActionEvent event) {
         if(selectedProperty != null){
-            managerPropertyTable.getSelectionModel().clearSelection();
-            adminViewProperty.setDisable(false);
+            tenantPropertyTable.getSelectionModel().clearSelection();
+            tenantViewProperty.setDisable(false);
         } if(selectedProperty.getPropertyType().equals("Residential")){
             view.showOwnerResidential(getResidentialPropertyById(selectedProperty.getPropertyId()));
         } else {
@@ -167,83 +159,84 @@ public class ManagerHomeController {
             view.showOwnerCommercial(getCommercialPropertyById(selectedProperty.getPropertyId()));
         }
     }
-    public ManagerHomeController() {
+    public TenantHomeController() {
         this.databaseConnection = databaseConnection.getInstance();
         this.view = new ViewFactory(Model.getInstance().getDatabaseConnection());
     }
 
-    public void initialize(Manager manager, ManagerController controller) {
-        this.manager = manager;
-        this.managerController = controller;
+    public void initialize(Tenant tenant, TenantController tenantController) {
+        this.tenant = tenant;
+        this.tenantController = tenantController;
+        populateUserPropertyTable();
+        tenantInfoTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) { // This means the tab is selected
+                handleProfileTabSelection(); // Call the method to handle the tab selection
+            }
+        });
 
-        adminPropertyTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
+        tenantPropertyTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 populateUserPropertyTable();
-                adminAddProperty.setDisable(false);
-                adminViewProperty.setDisable(true);
+                tenantViewProperty.setDisable(true);
             }
         });
 
-        adminUserTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
+        tenantRentalTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                populateUserTable();
-                adminAddUser.setDisable(false);
-                adminViewUser.setDisable(true);
+                populateTenantRentalTable();
             }
         });
 
-        adminRentalTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                populateRentalTable();
-                adminAddAgreement.setDisable(false);
-                adminViewAgreement.setDisable(true);
-            }
-        });
-
-        managerPropertyTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        tenantPropertyTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 selectedProperty = (Property) newSelection;
-                adminViewProperty.setDisable(false);
+                tenantViewProperty.setDisable(false);
             } else {
-                adminViewProperty.setDisable(true);
+                tenantViewProperty.setDisable(true);
             }
         });
 
-        adminUserTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                selectedUser = (Person) newSelection;
-                adminViewUser.setDisable(false);
-            } else {
-                adminViewUser.setDisable(true);
-            }
-        });
-
-        adminRentalTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        tenantRentalTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 selectedRental = (RentalAgreement) newSelection;
-                adminViewAgreement.setDisable(false);;
+                tenantViewAgreement.setDisable(false);
             } else {
-                adminViewAgreement.setDisable(true);
+                tenantViewAgreement.setDisable(true);
             }
         });
     }
 
     public void postInitialize() {
+
         populateUserPropertyTable();
+    }
+
+    @FXML
+    public void handleProfileTabSelection() {
+        if (tenantInfoTab.isSelected()) {
+            String[] information = tenantController.getInfo().split("\n");
+            tenantUserId.setText(information[0].split(": ")[1]);
+            tenantFullName.setText(information[1].split(": ")[1]);
+            tenantUsername.setText(information[2].split(": ")[1]);
+            tenantPassword.setText(information[3].split(": ")[1]);
+            tenantDob.setText(information[4].split(": ")[1]);
+            tenantContact.setText(information[5].split(": ")[1]);
+        }
+
     }
 
 
     private void populateUserPropertyTable(){
-        List<Property> datas = managerController.getProperty();
+        List<Property> datas = tenantController.getProperty();
         ObservableList<Property> data = FXCollections.observableArrayList(datas);
-        adminPropertyId.setCellValueFactory(new PropertyValueFactory<>("propertyId"));
-        adminPropertyAddress.setCellValueFactory(new PropertyValueFactory<>("propertyAddress"));
-        adminPropertyPrice.setCellValueFactory(new PropertyValueFactory<>("propertyPrice"));
-        adminPropertyType.setCellValueFactory(new PropertyValueFactory<>("propertyType"));
+        tenantPropertyId.setCellValueFactory(new PropertyValueFactory<>("propertyId"));
+        tenantPropertyAddress.setCellValueFactory(new PropertyValueFactory<>("propertyAddress"));
+        tenantPropertyPrice.setCellValueFactory(new PropertyValueFactory<>("propertyPrice"));
+        tenantPropertyType.setCellValueFactory(new PropertyValueFactory<>("propertyType"));
 
         FilteredList<Property> filteredData = new FilteredList<>(data, b -> true);
 
-        adminPropertySearchBox.textProperty().addListener((observable, oldValue, newValue) -> {
+        tenantPropertySearchBox.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(property -> {
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
@@ -259,10 +252,10 @@ public class ManagerHomeController {
             });
         });
 
-        managerPropertyTable.setItems(filteredData);
+        tenantPropertyTable.setItems(filteredData);
 
         if (selectedProperty != null){
-            managerPropertyTable.getSelectionModel().select(selectedProperty);
+            tenantPropertyTable.getSelectionModel().select(selectedProperty);
             System.out.println(selectedProperty);
         } else {
             System.out.println("TestSelect");
@@ -270,58 +263,19 @@ public class ManagerHomeController {
 
     }
 
-    private void populateUserTable(){
-        List<Person> datas = managerController.getUser();
-        ObservableList<Person> data = FXCollections.observableArrayList(datas);
-
-        adminUserId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        adminUserName.setCellValueFactory(new PropertyValueFactory<>("fullName"));
-        adminUserUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
-        adminUserPassword.setCellValueFactory(new PropertyValueFactory<>("password"));
-        adminUserRole.setCellValueFactory(new PropertyValueFactory<>("role"));
-
-        FilteredList<Person> filteredData = new FilteredList<>(data, b -> true);
-
-        adminSearchUserBox.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(person -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (person.getFullName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else if (person.getId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true;
-                } else return false;
-            });
-        });
-
-        adminUserTable.setItems(filteredData);
-        if (selectedUser != null){
-            adminUserTable.getSelectionModel().select(selectedUser);
-            System.out.println(selectedUser);
-        } else {
-            System.out.println("TestSelect");
-        }
-
-    }
-
-    private void populateRentalTable(){
-        List<RentalAgreement> datas = managerController.getRentalAgreement();
+    private void populateTenantRentalTable(){
+        List<RentalAgreement> datas = tenantController.getRentalAgreement();
         ObservableList<RentalAgreement> data = FXCollections.observableArrayList(datas);
 
-        adminRentalId.setCellValueFactory(new PropertyValueFactory<>("rentalId"));
-        adminTenantId.setCellValueFactory(new PropertyValueFactory<>("tenantId"));
-        adminHostId.setCellValueFactory(new PropertyValueFactory<>("hostId"));
-        adminRentalStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-        adminStart.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-        adminEnd.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        tenantRentalId.setCellValueFactory(new PropertyValueFactory<>("rentalId"));
+        tenantHostId.setCellValueFactory(new PropertyValueFactory<>("tenantId"));
+        tenantRentalStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        tenantStart.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        tenantEnd.setCellValueFactory(new PropertyValueFactory<>("endDate"));
 
         FilteredList<RentalAgreement> filteredData = new FilteredList<>(data, b -> true);
 
-        adminAgreementSearchBox.textProperty().addListener((observable, oldValue, newValue) -> {
+        tenantAgreementSearchBox.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(rentalAgreement -> {
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
@@ -336,14 +290,14 @@ public class ManagerHomeController {
                 } else if (rentalAgreement.getTenantId().toLowerCase().indexOf(lowerCaseFilter) != -1) {
                     return true;
                 } else if (rentalAgreement.getStatus().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                        return true;
+                    return true;
                 } else return false;
             });
         });
 
-        adminRentalTable.setItems(filteredData);
+        tenantRentalTable.setItems(filteredData);
         if (selectedRental != null){
-            adminRentalTable.getSelectionModel().select(selectedRental);
+            tenantRentalTable.getSelectionModel().select(selectedRental);
             System.out.println(selectedRental);
         } else {
             System.out.println("TestSelect");
@@ -352,6 +306,20 @@ public class ManagerHomeController {
     }
 
 
+
+
+    @FXML
+    public void onProfileSaveButton(ActionEvent event){
+
+        String password = tenantPassword.getText();
+        String contact = tenantContact.getText();
+        String fullName = tenantFullName.getText();
+        String username = tenantUsername.getText();
+
+        //Save update data to the database
+        updateProfile(password, contact, fullName, username);
+
+    }
 
     private void updateProfile(String password, String contact, String fullName, String username)
     {
@@ -373,22 +341,12 @@ public class ManagerHomeController {
         }
     }
 
+//    @FXML
+//    public void setHostAddProperty() {
+//        ViewFactory view = new ViewFactory(databaseConnection);
+//        view.showPropertyAddForm();
+//    }
 
-    @FXML
-    public void onManagerAddProperty(ActionEvent event){
-
-        ViewFactory view = new ViewFactory(databaseConnection);
-        view.showAdminPropertyAddForm();
-
-    }
-
-    @FXML
-    public void onManagerAddRental(ActionEvent event){
-
-        ViewFactory view = new ViewFactory(databaseConnection);
-        view.showRentalAddForm();
-
-    }
 
     public Residential getResidentialPropertyById(String propertyId) {
         Residential property = null;
@@ -449,26 +407,20 @@ public class ManagerHomeController {
     }
 
     @FXML
-    public void onManagerAddUser(ActionEvent event){
+    public void onTenantAddRental(ActionEvent event){
 
         ViewFactory view = new ViewFactory(databaseConnection);
-        view.showUserAddForm();
+        view.showRentalAddForm();
 
     }
 
     @FXML
-    public void onManagerViewUser(ActionEvent event){
-
-        ViewFactory view = new ViewFactory(databaseConnection);
-        view.showUserViewForm(selectedUser);
-
-    }
-
-    @FXML
-    public void onManagerViewRental(ActionEvent event){
+    public void onTenantViewRental(ActionEvent event){
 
         ViewFactory view = new ViewFactory(databaseConnection);
         view.showRentalViewForm(selectedRental);
 
     }
+
+
 }

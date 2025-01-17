@@ -9,39 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VisitorController {
-    private final Visitor visitor;
+
     private Connection connection;
 
-    public VisitorController(Visitor visitor, Connection connection) {
-        this.visitor = visitor;
+    public VisitorController(Connection connection) {
         this.connection = connection;
     }
 
 
-    public List<Person> getUser() {
-        List<Person> users = new ArrayList<>();
-        try {
-            Statement statement = connection.createStatement();
-            String query = "SELECT * FROM users";
-            ResultSet resultSet = statement.executeQuery(query);
-            while(resultSet.next()) {
-                Role role = Role.valueOf(resultSet.getString("role"));
-                Person user = new Person(
-                    resultSet.getString("userId"),
-                        resultSet.getString("fullname"),
-                        resultSet.getString("username"),
-                        resultSet.getString("password"),
-                        role,
-                        resultSet.getDate("dob"),
-                        resultSet.getString("contact")
-                );
-                users.add(user);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return users;
-    }
 
     public List<Residential> getResidential() {
         List<Residential> residentials = new ArrayList<>();

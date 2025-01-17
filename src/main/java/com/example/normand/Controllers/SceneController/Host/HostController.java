@@ -19,9 +19,9 @@ public class HostController {
 
     public String getInfo() {
         return "ID: " + host.getId() + "\n" +
-                "Full Name:" + host.getFullName() + "\n" +
-                "Username:" + host.getUsername() + "\n" +
-                "Password:" + host.getPassword() + "\n" +
+                "Full Name: " + host.getFullName() + "\n" +
+                "Username: " + host.getUsername() + "\n" +
+                "Password: " + host.getPassword() + "\n" +
                 "Dob: " + host.getDob() + "\n" +
                 "Contact Info: " + host.getContactInfo();
 
@@ -86,7 +86,7 @@ public class HostController {
         List<Commercial> commercials = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
-            String query = "SELECT * FROM property";
+            String query = "SELECT * FROM property ";
             ResultSet resultSet = statement.executeQuery(query);
             while(resultSet.next()) {
                 String type = resultSet.getString("type");
@@ -113,7 +113,7 @@ public class HostController {
         List<Property> properties = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
-            String query = "SELECT * FROM property";
+            String query = "SELECT p.* FROM property p JOIN agreement a ON p.propertyid = a.propertyid WHERE a.hostId = '" + host.getId() + "'";
             ResultSet resultSet = statement.executeQuery(query);
             while(resultSet.next()) {
                 String type = resultSet.getString("type");
@@ -137,7 +137,7 @@ public class HostController {
         List<RentalAgreement> rentals = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
-            String query = "SELECT * FROM agreement";
+            String query = "SELECT * FROM agreement WHERE hostid = '" + host.getId() + "'";
             ResultSet resultSet = statement.executeQuery(query);
             while(resultSet.next()) {
                 RentalAgreement rental = new RentalAgreement(

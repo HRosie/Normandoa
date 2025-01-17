@@ -153,7 +153,7 @@ public class OwnerController {
             ResultSet resultSet = statement.executeQuery(query);
             while(resultSet.next()) {
                 RentalAgreement rental = new RentalAgreement(
-                        resultSet.getString("agreementid"),
+                        resultSet.getString("rentalid"),
                         resultSet.getString("propertyid"),
                         resultSet.getString("ownerid"),
                         resultSet.getString("hostid"),

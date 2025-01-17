@@ -23,4 +23,13 @@ module com.example.normand {
     exports com.example.normand.Controllers.SceneController.Manager;
     opens com.example.normand.Controllers.SceneController.Manager to javafx.fxml;
 
+    exports com.example.normand.Controllers.SceneController.Host;
+    opens com.example.normand.Controllers.SceneController.Host to javafx.fxml;
+
+    exports com.example.normand.Controllers.SceneController.Tenant;
+    opens com.example.normand.Controllers.SceneController.Tenant to javafx.fxml;
+
+    exports com.example.normand.Controllers.SceneController.Visitor;
+    opens com.example.normand.Controllers.SceneController.Visitor to javafx.fxml;
+
 }
