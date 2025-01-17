@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.normand.Controllers.PropertyController.ShowUserController">
+   <children>
+      <HBox layoutX="14.0" layoutY="14.0" prefHeight="374.0" prefWidth="573.0">
+         <children>
+            <GridPane prefHeight="374.0" prefWidth="575.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="282.20001220703125" minWidth="10.0" prefWidth="196.8" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="389.59996337890624" minWidth="10.0" prefWidth="376.8" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="48.600016021728514" minHeight="10.0" prefHeight="27.80001220703125" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="116.0" minHeight="10.0" prefHeight="29.400008392333987" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="149.59997787475587" minHeight="10.0" prefHeight="30.999993896484376" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="176.00000610351563" minHeight="10.0" prefHeight="27.80002441406249" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="198.00002136230466" minHeight="10.0" prefHeight="28.5999755859375" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="198.00002136230466" minHeight="10.0" prefHeight="33.59998168945313" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="198.00002136230466" minHeight="10.0" prefHeight="29.59998168945313" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="198.00002136230466" minHeight="10.0" prefHeight="32.600003051757795" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="198.00002136230466" minHeight="10.0" prefHeight="31.199981689453125" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="78.39999999999998" minHeight="10.0" prefHeight="78.39999999999998" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="22.0" prefWidth="201.0" text="Rental ID">
+                     <font>
+                        <Font name="Consolas" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="22.0" prefWidth="238.0" text="Property ID" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Consolas" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="22.0" prefWidth="235.0" text="Host ID" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Consolas" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="22.0" prefWidth="266.0" text="End Date" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="Consolas" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="22.0" prefWidth="281.0" text="Owner ID" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Consolas" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField opacity="0.0" GridPane.columnIndex="1" />
+                  <TextField opacity="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField opacity="0.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField opacity="0.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField opacity="0.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <TextField fx:id="userInfo" GridPane.columnIndex="1" />
+                  <TextField fx:id="userName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="userRole" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="userDob" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="userContact" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <HBox alignment="BOTTOM_RIGHT" prefHeight="78.0" prefWidth="431.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                     <children>
+                        <GridPane>
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Button fx:id="userExit" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#UserExitButton" prefHeight="33.0" prefWidth="76.0" text="Exit" GridPane.columnIndex="2" />
+                              <Button fx:id="userUpdate" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#UserSaveButton" prefHeight="37.0" prefWidth="82.0" text="Update" />
+                              <Button fx:id="userRemove" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#UserRemoveButton" prefHeight="34.0" prefWidth="74.0" text="Remove" GridPane.columnIndex="1" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </HBox>
+                  <TextField fx:id="userContact1" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="userContact2" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="userContact3" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <TextField fx:id="userContact4" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <Label alignment="TOP_LEFT" prefHeight="22.0" prefWidth="258.0" text="Tenant ID" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="Consolas" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="22.0" prefWidth="241.0" text="Start Date" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="Consolas" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="22.0" prefWidth="292.0" text="Fee" GridPane.rowIndex="7">
+                     <font>
+                        <Font name="Consolas" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" prefHeight="22.0" prefWidth="266.0" text="Status" GridPane.rowIndex="8">
+                     <font>
+                        <Font name="Consolas" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </GridPane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
