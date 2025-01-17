@@ -1,5 +1,9 @@
 package com.example.normand.Controllers.SceneController.Owner;
 
+/**
+ * @author sg-random-tut3-group2
+ */
+
 import com.example.normand.Database.DatabaseConnection;
 import com.example.normand.Models.*;
 import javafx.event.ActionEvent;
@@ -125,7 +129,6 @@ public class OwnerController {
         try {
             Statement statement = connection.createStatement();
             String query = "SELECT * FROM property WHERE ownerId = '" + owner.getId() + "'";
-            System.out.println(owner.getId());
             ResultSet resultSet = statement.executeQuery(query);
             while(resultSet.next()) {
                 String type = resultSet.getString("type");

@@ -1,5 +1,9 @@
 package com.example.normand.Controllers.PropertyController;
 
+/**
+ * @author sg-random-tut3-group2
+ */
+
 import com.example.normand.Models.Property;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -216,85 +220,6 @@ public class AddPropertyController {
     }
 
 
-//    void handleAddCommercial(ActionEvent event) {
-//        // Collect values from the form
-//        boolean petIsSelected = false;
-//        boolean gardenIsSelected = false;
-//        String propertyId = addCommercialId.getText();
-//        String propertyAddress = addCommercialAddress.getText();
-//        String propertyArea = addCommercialArea.getText();
-//        String propertyPrice = addCommercialPrice.getText();
-//        String propertyRoom = null; // Room field may be empty
-//        String parkingValue = addCommericalParking.getText();
-//        String propertyType = addCommercialType.getText();
-//        // Collect parking input (empty if not provided)
-//
-//        // Check if all required fields are filled out
-//        if (propertyId.isEmpty() || propertyAddress.isEmpty() || propertyArea.isEmpty() || propertyPrice.isEmpty()) {
-//            addCommercialButton.setDisable(true);
-//            return;
-//        }
-//
-//        // Validate fields
-//        try {
-//            // Parse price, area, and room
-//            double price = Double.parseDouble(propertyPrice);
-//            double area = Double.parseDouble(propertyArea);
-//            double park = Double.parseDouble(parkingValue);
-//
-//            // If room is provided, parse it, otherwise set to NULL
-//            Integer rooms = null;
-//            if (!propertyRoom.isEmpty()) {
-//                rooms = Integer.parseInt(propertyRoom);
-//            }
-//
-//            // Check if values are valid
-//            if (price < 1 || area < 1 || (park < 1)) {
-//                addCommercialButton.setDisable(true);
-//                return;
-//            }
-//
-//            // Database Insert - Add data to property table
-//            String query = "INSERT INTO property (propertyId, address, area, price, room, pet, garden, parking, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-//
-//            try (PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query)) {
-//
-//                // Set the values in the prepared statement
-//                statement.setString(1, propertyId);
-//                statement.setString(2, propertyAddress);
-//                statement.setDouble(3, area);  // Use setDouble for area
-//                statement.setDouble(4, price); // Use setDouble for price
-//
-//                // Handle the room value: Set NULL if the field is empty
-//                statement.setNull(5, java.sql.Types.INTEGER); // Set NULL for rooms if not provided
-//
-//                statement.setBoolean(6, petIsSelected);
-//                statement.setBoolean(7, gardenIsSelected);
-//
-//                // Handle the parking value: Set NULL if the field is empty
-//
-//                statement.setInt(8, park); // Otherwise, set the provided parking value
-//
-//                // Set the type value as "Residential"
-//                statement.setString(9, propertyType);
-//
-//                // Execute the query to insert the data
-//                statement.executeUpdate();
-//
-//                // Optionally, give feedback or clear fields
-//                System.out.println("Property added successfully.");
-//
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//                System.out.println("Error: Could not insert data into the property table.");
-//            }
-//
-//        } catch (NumberFormatException e) {
-//            // Handle invalid input (non-numeric values in the numeric fields)
-//            System.out.println("Invalid input for price, area, or rooms.");
-//        }
-//    }
-
     @FXML
     void handleAddResidential(ActionEvent event) {
         // Collect values from the form
@@ -385,81 +310,6 @@ public class AddPropertyController {
             System.out.println("Invalid input for price, area, or rooms.");
         }
     }
-
-//    void handleAddResidential(ActionEvent event) {
-//        // Collect values from the form
-//        boolean petIsSelected = addResidentPet.isSelected();
-//        boolean gardenIsSelected = addResidentGarden.isSelected();
-//        String propertyId = addResidentId.getText();
-//        String propertyAddress = addResidentAddress.getText();
-//        String propertyArea = addResidentArea.getText();
-//        String propertyPrice = addResidentPrice.getText();
-//        String propertyRoom = addResidentRoom.getText(); // Room field may be empty
-//        String parkingValue = null; // Collect parking input (empty if not provided)
-//
-//        // Check if all required fields are filled out
-//        if (propertyId.isEmpty() || propertyAddress.isEmpty() || propertyArea.isEmpty() || propertyPrice.isEmpty()) {
-//            addResidentButton.setDisable(true);
-//            return;
-//        }
-//
-//        // Validate fields
-//        try {
-//            // Parse price, area, and room
-//            double price = Double.parseDouble(propertyPrice);
-//            double area = Double.parseDouble(propertyArea);
-//
-//            // If room is provided, parse it, otherwise set to NULL
-//            Integer rooms = null;
-//            if (!propertyRoom.isEmpty()) {
-//                rooms = Integer.parseInt(propertyRoom);
-//            }
-//
-//            // Check if values are valid
-//            if (price < 1 || area < 1 || (rooms != null && rooms < 1)) {
-//                addResidentButton.setDisable(true);
-//                return;
-//            }
-//
-//            // Database Insert - Add data to property table
-//            String query = "INSERT INTO property (propertyId, address, area, price, room, pet, garden, parking, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-//
-//            try (PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query)) {
-//
-//                // Set the values in the prepared statement
-//                statement.setString(1, propertyId);
-//                statement.setString(2, propertyAddress);
-//                statement.setDouble(3, area);  // Use setDouble for area
-//                statement.setDouble(4, price); // Use setDouble for price
-//
-//                // Handle the room value: Set NULL if the field is empty
-//                statement.setInt(5, rooms); // Otherwise, set the provided room value
-//
-//                statement.setBoolean(6, petIsSelected);
-//                statement.setBoolean(7, gardenIsSelected);
-//
-//                // Handle the parking value: Set NULL if the field is empty
-//                statement.setNull(8, java.sql.Types.VARCHAR); // Set NULL for parking if not provided
-//
-//                // Set the type value as "Residential"
-//                statement.setString(9, "Residential");
-//
-//                // Execute the query to insert the data
-//                statement.executeUpdate();
-//
-//                // Optionally, give feedback or clear fields
-//                System.out.println("Property added successfully.");
-//
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//                System.out.println("Error: Could not insert data into the property table.");
-//            }
-//
-//        } catch (NumberFormatException e) {
-//            // Handle invalid input (non-numeric values in the numeric fields)
-//            System.out.println("Invalid input for price, area, or rooms.");
-//        }
-//    }
 
 
     private DatabaseConnection databaseConnection;

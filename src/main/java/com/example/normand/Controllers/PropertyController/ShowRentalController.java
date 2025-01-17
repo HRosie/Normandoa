@@ -1,5 +1,9 @@
 package com.example.normand.Controllers.PropertyController;
 
+/**
+ * @author sg-random-tut3-group2
+ */
+
 import com.example.normand.Database.DatabaseConnection;
 import com.example.normand.Models.Person;
 import com.example.normand.Models.RentalAgreement;
@@ -114,7 +118,6 @@ public class ShowRentalController {
         try {
             String query = "UPDATE Agreement SET rentalid = ?, ownerid = ?, hostid = ?, tenantid = ?, propertyid = ?, fee = ?, status = ?, startdate = ?, enddate = ? WHERE rentalid = ?";
             PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
-            System.out.println(query);
             statement.setString(1, id);
             statement.setString(2, owner);
             statement.setString(3, host);
@@ -133,7 +136,6 @@ public class ShowRentalController {
 
 
             int rowsUpdated = statement.executeUpdate();
-            System.out.println("rows updated: " + rowsUpdated);
             if (rowsUpdated > 0) {
                 System.out.println("An existing Agreement was updated successfully!");
             }

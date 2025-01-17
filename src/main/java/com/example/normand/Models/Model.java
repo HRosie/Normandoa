@@ -1,5 +1,9 @@
 package com.example.normand.Models;
 
+/**
+ * @author sg-random-tut3-group2
+ */
+
 import com.example.normand.Controllers.SceneController.ViewFactory;
 import com.example.normand.Database.DatabaseConnection;
 

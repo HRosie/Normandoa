@@ -1,5 +1,9 @@
 package com.example.normand.Database;
 
+/**
+ * @author sg-random-tut3-group2
+ */
+
 //import ui.gp.com.example.normand.Models.Role;
 
 import com.example.normand.Models.*;

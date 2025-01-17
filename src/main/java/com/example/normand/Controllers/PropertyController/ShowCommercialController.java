@@ -1,5 +1,9 @@
 package com.example.normand.Controllers.PropertyController;
 
+/**
+ * @author sg-random-tut3-group2
+ */
+
 import com.example.normand.Database.DatabaseConnection;
 import com.example.normand.Models.Commercial;
 import javafx.event.ActionEvent;
@@ -39,7 +43,7 @@ public class ShowCommercialController {
         if (property != null) {
             showPropertyInfo();
         } else {
-            System.out.println("property is null");
+            System.out.println("Property is null");
         }
     }
 
@@ -87,7 +91,6 @@ public class ShowCommercialController {
         try {
             String query = "UPDATE Property SET address = ?, area = ?, type = ?, parking = ?, price = ? WHERE propertyid = ?";
             PreparedStatement statement = DatabaseConnection.getInstance().getConnection().prepareStatement(query);
-            System.out.println(query);
             statement.setString(1, address);
             statement.setDouble(2, area);
             statement.setString(3, type);

@@ -1,5 +1,9 @@
 package com.example.normand.Models;
 
+/**
+ * @author sg-random-tut3-group2
+ */
+
 import java.util.Date;
 
 public class Manager extends Person {

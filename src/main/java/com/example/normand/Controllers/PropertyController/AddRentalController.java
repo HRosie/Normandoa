@@ -1,5 +1,9 @@
 package com.example.normand.Controllers.PropertyController;
 
+/**
+ * @author sg-random-tut3-group2
+ */
+
 import com.example.normand.Database.DatabaseConnection;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;

@@ -1,5 +1,9 @@
 package com.example.normand.Controllers.SceneController.Others;
 
+/**
+ * @author sg-random-tut3-group2
+ */
+
 import com.example.normand.Models.Person;
 import com.example.normand.Models.Property;
 import com.example.normand.Models.RentalAgreement;

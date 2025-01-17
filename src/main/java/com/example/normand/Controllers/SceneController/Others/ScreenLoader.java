@@ -1,5 +1,9 @@
 package com.example.normand.Controllers.SceneController.Others;
 
+/**
+ * @author sg-random-tut3-group2
+ */
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

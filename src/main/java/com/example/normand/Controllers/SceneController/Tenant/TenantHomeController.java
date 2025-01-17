@@ -1,5 +1,9 @@
 package com.example.normand.Controllers.SceneController.Tenant;
 
+/**
+ * @author sg-random-tut3-group2
+ */
+
 import com.example.normand.Controllers.SceneController.Tenant.TenantController;
 import com.example.normand.Controllers.SceneController.Others.SceneUtil;
 import com.example.normand.Controllers.SceneController.ViewFactory;
@@ -155,7 +159,6 @@ public class TenantHomeController {
         } if(selectedProperty.getPropertyType().equals("Residential")){
             view.showOwnerResidential(getResidentialPropertyById(selectedProperty.getPropertyId()));
         } else {
-            System.out.println(getCommercialPropertyById(selectedProperty.getPropertyId()));
             view.showOwnerCommercial(getCommercialPropertyById(selectedProperty.getPropertyId()));
         }
     }
@@ -256,9 +259,6 @@ public class TenantHomeController {
 
         if (selectedProperty != null){
             tenantPropertyTable.getSelectionModel().select(selectedProperty);
-            System.out.println(selectedProperty);
-        } else {
-            System.out.println("TestSelect");
         }
 
     }
@@ -298,9 +298,6 @@ public class TenantHomeController {
         tenantRentalTable.setItems(filteredData);
         if (selectedRental != null){
             tenantRentalTable.getSelectionModel().select(selectedRental);
-            System.out.println(selectedRental);
-        } else {
-            System.out.println("TestSelect");
         }
 
     }

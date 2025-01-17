@@ -1,5 +1,9 @@
 package com.example.normand.Controllers.SceneController.Owner;
 
+/**
+ * @author sg-random-tut3-group2
+ */
+
 import com.example.normand.Controllers.SceneController.Others.SceneUtil;
 import com.example.normand.Controllers.SceneController.ViewFactory;
 import com.example.normand.Database.DatabaseConnection;
@@ -147,7 +151,6 @@ public class OwnerHomeController {
         } if(selectedProperty.getPropertyType().equals("Residential")){
             view.showOwnerResidential(getResidentialPropertyById(selectedProperty.getPropertyId()));
         } else {
-            System.out.println(getCommercialPropertyById(selectedProperty.getPropertyId()));
             view.showOwnerCommercial(getCommercialPropertyById(selectedProperty.getPropertyId()));
         }
     }
@@ -192,7 +195,6 @@ public class OwnerHomeController {
     public void handleProfileTabSelection() {
         if (ownerInfoTab.isSelected()) {
             String[] information = ownerController.getInfo().split("\n");
-            System.out.println(information[2]);
             ownerUserId.setText(information[0].split(": ")[1]);
             ownerFullName.setText(information[1].split(": ")[1]);
             ownerUsername.setText(information[2].split(": ")[1]);
@@ -234,9 +236,6 @@ public class OwnerHomeController {
 
         if (selectedProperty != null){
             ownerPropertyTable.getSelectionModel().select(selectedProperty);
-            System.out.println(selectedProperty);
-        } else {
-            System.out.println("TestSelect");
         }
 
     }

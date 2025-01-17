@@ -1,7 +1,7 @@
 package com.example.normand.Models;
 
 /**
- * @author <Nguyen Tien Minh Quan - s3931082>
+ * @author sg-random-tut3-group2
  */
 
 public class Property {

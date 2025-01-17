@@ -1,5 +1,9 @@
 package com.example.normand.Controllers.SceneController.Manager;
 
+/**
+ * @author sg-random-tut3-group2
+ */
+
 import com.example.normand.Controllers.SceneController.Others.SceneUtil;
 import com.example.normand.Controllers.SceneController.ViewFactory;
 import com.example.normand.Database.DatabaseConnection;
@@ -163,7 +167,6 @@ public class ManagerHomeController {
         } if(selectedProperty.getPropertyType().equals("Residential")){
             view.showOwnerResidential(getResidentialPropertyById(selectedProperty.getPropertyId()));
         } else {
-            System.out.println(getCommercialPropertyById(selectedProperty.getPropertyId()));
             view.showOwnerCommercial(getCommercialPropertyById(selectedProperty.getPropertyId()));
         }
     }
@@ -263,9 +266,6 @@ public class ManagerHomeController {
 
         if (selectedProperty != null){
             managerPropertyTable.getSelectionModel().select(selectedProperty);
-            System.out.println(selectedProperty);
-        } else {
-            System.out.println("TestSelect");
         }
 
     }
@@ -301,9 +301,6 @@ public class ManagerHomeController {
         adminUserTable.setItems(filteredData);
         if (selectedUser != null){
             adminUserTable.getSelectionModel().select(selectedUser);
-            System.out.println(selectedUser);
-        } else {
-            System.out.println("TestSelect");
         }
 
     }
@@ -344,9 +341,6 @@ public class ManagerHomeController {
         adminRentalTable.setItems(filteredData);
         if (selectedRental != null){
             adminRentalTable.getSelectionModel().select(selectedRental);
-            System.out.println(selectedRental);
-        } else {
-            System.out.println("TestSelect");
         }
 
     }

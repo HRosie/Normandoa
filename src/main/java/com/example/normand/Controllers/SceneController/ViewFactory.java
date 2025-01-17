@@ -1,5 +1,9 @@
 package com.example.normand.Controllers.SceneController;
 
+/**
+ * @author sg-random-tut3-group2
+ */
+
 import com.example.normand.Controllers.PropertyController.*;
 import com.example.normand.Controllers.SceneController.Host.HostController;
 import com.example.normand.Controllers.SceneController.Host.HostHomeController;
@@ -274,7 +278,6 @@ public class ViewFactory {
             ShowCommercialController controller = loader.getController();
 
             // Pass the residential property to the controller
-            System.out.println(property);
             controller.setCommercialProperty(property);
             // Call postInitialize to set up additional properties
             controller.postInitialize();  // Call this to handle any setup after initialization

@@ -1,5 +1,9 @@
 package com.example.normand;
 
+/**
+ * @author sg-random-tut3-group2
+ */
+
 import com.example.normand.Database.DatabaseConnection;
 import com.example.normand.Models.Model;
 import javafx.application.Application;

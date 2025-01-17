@@ -1,5 +1,9 @@
 package com.example.normand.Controllers.SceneController.Host;
 
+/**
+ * @author sg-random-tut3-group2
+ */
+
 import com.example.normand.Models.*;
 
 import java.sql.Connection;
